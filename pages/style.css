@@ -1,0 +1,19 @@
+a {
+  text-decoration: none;
+}
+.maint-wraper {
+  display: flex;
+  flex-direction: row;
+}
+.Sidebar {
+  background-color: red;
+  display: flex;
+  flex-basis: 20%;
+  flex-direction: column;
+  padding: 20px;
+}
+.maint-content {
+  flex-basis: 80%;
+  padding: 15px;
+  background-color: blue;
+}

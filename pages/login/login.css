@@ -1,0 +1,177 @@
+input {
+  outline: none;
+  height: 35px;
+  font-size: 12px;
+  padding: 9px 0 7px 8px;
+  background-color: #fafafa;
+  border: 0.5px solid #d8d9da;
+  border-radius: 5px;
+}
+button {
+  background-color: #4cb5f9;
+  height: 34px;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: #737373;
+}
+.login-wraper {
+  align-items: center;
+  margin-top: 40px;
+}
+.maint-login {
+  display: flex;
+  flex-direction: row;
+}
+.slider-login {
+  height: 634.15px;
+  width: 468.32px;
+  background-size: 468.32px 634.15px;
+  background-image: url("https://static.cdninstagram.com/images/instagram/xig/homepage/phones/home-phones.png?__makehaste_cache_breaker=HOgRclNOosk");
+}
+.slider-login > img {
+  position: relative;
+  top: 23px;
+  left: 157px;
+}
+.login-form_wraper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 0 20px 0;
+  max-width: 350px;
+}
+.login-form {
+  max-width: 350px;
+  padding: 20px 30px;
+  border: 0.5px solid #d8d9da;
+}
+.logo-insta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.logo-insta > i {
+  background-image: url(https://static.cdninstagram.com/rsrc.php/v3/yx/r/WtxJZZ3-9ZP.png);
+  background-position: 0px 0px;
+  background-size: 176px 186px;
+  width: 174px;
+  height: 50px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.form-wraper {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  min-width: 280px;
+  margin-bottom: 20px;
+}
+
+.option {
+  height: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.option > div:first-child {
+  height: 0.5px;
+  width: 100%;
+  background-color: #737373;
+}
+.option > div:nth-child(2) {
+  font-size: 12px;
+  font-weight: 700;
+  color: #737373;
+}
+.option > div:last-child {
+  height: 0.5px;
+  width: 100%;
+  background-color: #737373;
+}
+.login-option > a:first-child {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #385185;
+  gap: 8px;
+  font-size: 15px;
+}
+.login-option > a:last-child {
+  font-size: 12px;
+  text-decoration: none;
+}
+.login-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.register-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 27px;
+  font-size: 13px;
+  border: 0.5px solid #d8d9da;
+  line-height: 5px;
+  text-align: justify;
+}
+.register-link > p {
+  margin-bottom: 0;
+}
+.register-link > p > a > span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4cb5f9;
+}
+.platform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.platform > span {
+  font-size: 15px;
+}
+.plat-option {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+  max-height: 42px;
+  gap: 10px;
+}
+.footer {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.uper-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0 15px 0;
+}
+@media only screen and (max-width: 600px) {
+  .slider-login {
+    display: none;
+  }
+  .login-form {
+    border: none;
+  }
+  .register-link {
+    border: none;
+  }
+}
