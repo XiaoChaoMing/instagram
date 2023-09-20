@@ -1,12 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;600;900&display=swap");
 
 :root {
   /* color */
   /* font */
   --ff-primary: "roboto", sans-serif;
-  --ff-accent: "PLayfair Display", serif;
+  --ff-accent: "Poppins", sans-serif;
 }
 
 *,
@@ -19,7 +17,6 @@ body {
   font-family: var(--ff-primary);
   font-weight: 300;
   font-size: 1.33rem;
-  line-height: 1.6;
 }
 body,
 h1,

@@ -1,19 +1,131 @@
+body {
+  background-color: black;
+}
 a {
   text-decoration: none;
+  color: white;
 }
 .maint-wraper {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 }
 .Sidebar {
-  background-color: red;
-  display: flex;
   flex-basis: 20%;
-  flex-direction: column;
   padding: 20px;
+  height: 100vh;
+  min-width: 250px;
+  border-right: 1px solid #d8d9da2f;
 }
+.Sidebar-wraper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.maint-logo {
+  padding: 15px 0 15px 10px;
+}
+.sidebar-items {
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.item {
+  border-radius: 8px;
+}
+.item > a {
+  display: flex;
+  align-items: end;
+  padding: 10px;
+  gap: 15px;
+}
+.item > a > span,
+.berger-menu > span {
+  font-size: 17px;
+}
+.item:hover,
+.berger-menu:hover {
+  background-color: #1a1a1a;
+}
+.item:hover > a > ._ab6-,
+.berger-menu:hover > ._ab6- {
+  transition: all ease-in-out 0.3s;
+  transform: scale(1.1);
+}
+.berger-menu {
+  border-radius: 8px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: end;
+  gap: 15px;
+  transform: translateY(0);
+  color: white;
+  cursor: pointer;
+}
+
 .maint-content {
   flex-basis: 80%;
   padding: 15px;
-  background-color: blue;
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.content-wraper {
+  flex-basis: 60%;
+  height: 100%;
+
+  min-width: 600px;
+}
+.suggest-bar {
+  flex-basis: 40%;
+  height: 100%;
+  background-color: bisque;
+}
+@media screen and (max-width: 600px) {
+  .maint-wraper {
+    flex-direction: column-reverse;
+    height: 100vh;
+  }
+  .Sidebar {
+    flex-direction: row;
+    flex-basis: 5%;
+    padding: 0;
+    border-right: 0;
+    border-top: 1px solid #d8d9da2f;
+  }
+  .sidebar-items {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  .item > a > span,
+  .berger-menu,
+  .maint-logo,
+  .item-search {
+    display: none;
+  }
+  .maint-content {
+    flex-basis: 90%;
+    height: 100%;
+    padding: 0;
+  }
+  .content-wraper {
+    flex-basis: 100%;
+    height: 100%;
+    min-width: 0;
+  }
+  .suggest-bar {
+    display: none;
+  }
+  ._ab6- {
+    height: 14px;
+    width: 14px;
+  }
 }
