@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
     <!-- remix icon -->
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
@@ -38,8 +44,8 @@
           </div>
           <div class="sidebar-items">
             <!-- home -->
-            <div class="item">
-              <a href="">
+            <div class="item blue">
+              <a>
                 <svg
                   aria-label="Home"
                   class="_ab6-"
@@ -63,7 +69,7 @@
             </div>
             <!-- search -->
             <div class="item item-search">
-              <a href="">
+              <a>
                 <svg
                   aria-label="Search"
                   class="_ab6-"
@@ -99,7 +105,7 @@
             </div>
             <!-- explore -->
             <div class="item">
-              <a href="">
+              <a>
                 <svg
                   aria-label="Explore"
                   class="_ab6-"
@@ -138,7 +144,7 @@
             </div>
             <!--  reels-->
             <div class="item">
-              <a href="">
+              <a>
                 <svg
                   aria-label="Reels"
                   class="_ab6-"
@@ -199,7 +205,7 @@
             </div>
             <!-- message -->
             <div class="item">
-              <a href="">
+              <a>
                 <svg
                   aria-label="Direct"
                   class="_ab6-"
@@ -233,7 +239,7 @@
             </div>
             <!-- Create post -->
             <div class="item">
-              <a href="">
+              <a>
                 <svg
                   aria-label="New post"
                   class="_ab6-"
@@ -280,7 +286,7 @@
             </div>
             <!-- Profile -->
             <div class="item">
-              <a href="">
+              <a>
                 <img
                   style="border-radius: 50%"
                   height="24"
@@ -294,58 +300,175 @@
             </div>
           </div>
           <div class="berger-menu">
-            <svg
-              aria-label="Settings"
-              class="_ab6-"
-              color="rgb(245, 245, 245)"
-              fill="rgb(245, 245, 245)"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
-            >
-              <line
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                x1="3"
-                x2="21"
-                y1="4"
-                y2="4"
-              ></line>
-              <line
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                x1="3"
-                x2="21"
-                y1="12"
-                y2="12"
-              ></line>
-              <line
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                x1="3"
-                x2="21"
-                y1="20"
-                y2="20"
-              ></line>
-            </svg>
-            <span>More</span>
+            <i class="ri-login-box-line logIcon"></i>
+            <span>Login</span>
           </div>
         </div>
       </div>
       <div class="maint-content">
-        <div class="content-wraper"></div>
-        <div class="suggest-bar"></div>
+        <div class="content-wraper">
+          <div class="maint-story">
+            <div class="btn-nextStr"></div>
+            <div class="btn-prevStr"></div>
+            <div class="story-wraper">
+              <!-- render story -->
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+              <div class="story">
+                <div class="str-Useravt">
+                  <img
+                    height="54"
+                    width="54"
+                    src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="str-userName">Minh_nguyen</div>
+              </div>
+            </div>
+          </div>
+          <div class="posts-wraper"></div>
+        </div>
+        <div class="suggest-bar">
+          <div class="User-acount">
+            <div class="Avt-wraper">
+              <img
+                height="44"
+                width="44"
+                src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+                alt=""
+              />
+            </div>
+            <div class="info-User">
+              <div class="i4-nickName">nhat_minh149</div>
+              <div class="i4-UserName">Nguyễn Nhật Minh</div>
+            </div>
+            <div class="btn-switch">Switch</div>
+          </div>
+          <div class="sugget-user"></div>
+        </div>
+      </div>
+      <div class="mobile-header">
+        <div class="logo-wraper">
+          <i class="ri-instagram-line"></i>
+        </div>
+        <div class="search-bar">
+          <i class="ri-search-line"></i>
+          <input type="text" name="" id="" placeholder="Search" />
+        </div>
+        <div class="notifi">
+          <i class="ri-heart-line"></i>
+        </div>
       </div>
     </div>
+    <script src="/maint.js"></script>
   </body>
 </html>
