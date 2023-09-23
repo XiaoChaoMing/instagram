@@ -19,17 +19,23 @@ li {
 .maint-wraper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   overflow: hidden;
 }
 .Sidebar {
-  flex-basis: 20%;
+  overflow: hidden;
+  background-color: black;
+  min-width: 250px;
+  position: relative;
+  z-index: 3;
   padding: 20px;
   height: 100vh;
-  min-width: 250px;
   border-right: 1px solid #d8d9da2f;
 }
 .Sidebar-wraper {
+  min-width: 220px;
   display: flex;
+  flex-basis: 20%;
   flex-direction: column;
   height: 100%;
 }
@@ -50,7 +56,7 @@ li {
   display: flex;
   align-items: end;
   padding: 10px;
-  gap: 15px;
+  gap: 20px;
 }
 .item > a > span,
 .berger-menu > span {
@@ -71,19 +77,61 @@ li {
   padding: 10px;
   display: flex;
   align-items: end;
-  gap: 15px;
+  gap: 28px;
   transform: translateY(0);
   color: white;
   cursor: pointer;
 }
-
+.Search-overlay {
+  left: -100%;
+  width: 530px;
+  height: 100%;
+  padding: 30px 0 0 90px;
+  position: absolute;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-right: 1px solid #262626;
+  background-color: black;
+  z-index: 2;
+}
+.Search-overlay > p {
+  font-weight: 600;
+}
+.Search-ov-input {
+  padding: 20px 0;
+  border-bottom: 1px solid #262626;
+}
+.Search-ov-input > input {
+  background-color: #262626;
+  border: none;
+  outline: none;
+  height: 40px;
+  width: 90%;
+  border-radius: 10px;
+  padding-left: 18px;
+  font-size: 17px;
+}
+.create_post-overlay {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: #000000d1;
+  display: none;
+}
+.btn-close_OvPost {
+  transform: translate(97%, 20px);
+}
 .maint-content {
   flex-basis: 80%;
   padding: 15px;
   width: 100%;
+  min-width: fit-content;
   height: 100vh;
   display: flex;
   box-sizing: border-box;
+  justify-content: end;
   padding: 40px 60px 40px 60px;
   overflow: scroll;
 }
@@ -153,7 +201,7 @@ li {
 .suggest-bar {
   flex-basis: 40%;
   height: 100%;
-  padding: 10px 60px 0 40px;
+  padding: 10px 60px 0 70px;
   color: white;
   font-size: 14px;
 }
@@ -221,6 +269,9 @@ li {
 }
 .maint-post {
   width: 468px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #262626;
+  margin-bottom: 20px;
 }
 .post-info {
   display: flex;
@@ -272,16 +323,36 @@ li {
 .post-status > span {
   font-weight: 700px;
 }
-
+.show-comments,
+.show-comments > span,
+.add-comment > i {
+  color: #a8a8a8;
+  font-size: 15px;
+}
+.show-comments {
+  margin-bottom: 8px;
+}
+.add-comment {
+  display: flex;
+}
+.add-comment > input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  flex-grow: 1;
+}
 .blue {
-  color: blue;
+  width: fit-content;
 }
 @media screen and (max-width: 600px) {
   .maint-wraper {
     flex-direction: column-reverse;
+    justify-content: space-between;
     height: 100vh;
   }
   .Sidebar {
+    overflow: hidden;
+    min-width: none;
     flex-direction: row;
     flex-basis: 5%;
     padding: 0;
@@ -301,10 +372,12 @@ li {
   .item-search {
     display: none;
   }
+
   .maint-content {
     flex-basis: 90%;
     height: 100%;
     padding: 0;
+    min-width: 0;
   }
   .mobile-header {
     display: flex;
@@ -362,5 +435,11 @@ li {
   }
   .speaker-wraper {
     right: 1%;
+  }
+  .Search-overlay {
+    display: none;
+  }
+  .btn-close_OvPost {
+    transform: translate(90%, 20px);
   }
 }

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- jquery -->
     <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"
     ></script>
     <!-- remix icon -->
@@ -21,6 +21,20 @@
   </head>
   <body>
     <div class="maint-wraper">
+      <div class="Search-overlay">
+        <p>Search</p>
+
+        <div class="Search-ov_Wraper">
+          <div class="Search-ov-input">
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+      </div>
+      <div class="create_post-overlay">
+        <div class="btn-close_OvPost">
+          <i class="ri-close-fill ri-lg"></i>
+        </div>
+      </div>
       <div class="Sidebar">
         <div class="Sidebar-wraper">
           <div class="maint-logo">
@@ -44,7 +58,7 @@
           </div>
           <div class="sidebar-items">
             <!-- home -->
-            <div class="item blue">
+            <div class="item">
               <a>
                 <svg
                   aria-label="Home"
@@ -555,6 +569,22 @@
                     <span class="post-username">nhat_minh149</span>
                     <p>hiphopNVD</p>
                   </div>
+                  <div class="comments-wraper">
+                    <div class="show-comments">
+                      View all
+                      <span class="total-comments">100</span>
+                      comment
+                    </div>
+                    <div class="add-comment">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        placeholder="Add a comment..."
+                      />
+                      <i class="ri-emotion-line"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="maint-post">
@@ -673,6 +703,22 @@
                   <div class="post-status">
                     <span class="post-username">nhat_minh149</span>
                     <p>hiphopNVD</p>
+                  </div>
+                  <div class="comments-wraper">
+                    <div class="show-comments">
+                      View all
+                      <span class="total-comments">100</span>
+                      comment
+                    </div>
+                    <div class="add-comment">
+                      <input
+                        type="text"
+                        name=""
+                        id=""
+                        placeholder="Add a comment..."
+                      />
+                      <i class="ri-emotion-line"></i>
+                    </div>
                   </div>
                 </div>
               </div>
