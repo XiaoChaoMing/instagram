@@ -18,6 +18,9 @@ li {
 input[type="file"] {
   display: none;
 }
+input {
+  font-size: 15px;
+}
 .maint-wraper {
   display: flex;
   flex-direction: row;
@@ -367,6 +370,7 @@ input[type="file"] {
   position: relative;
 }
 .slider-wrap {
+  touch-action: cross-slide-x;
   display: flex;
   overflow: scroll;
   padding: 0;

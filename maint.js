@@ -80,9 +80,13 @@ const App = {
         toggleBtn();
       }, 500);
     };
-    $(".slider-wrap").on("swipe", () => {
-      $(this).addClass("toggleSwip");
-      $(this).removeClass("toggleSwip");
+    $(".slider-wrap").on("touchmove", () => {
+      console.log("1");
+      console.log($(this));
+      $(".slider-wrap").addClass("toggleSwip");
+      setTimeout(() => {
+        $(".slider-wrap").removeClass("toggleSwip");
+      }, 1000);
     });
     const currentIdx = (x) => {
       console.log((imgIndex += x));
