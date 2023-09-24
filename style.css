@@ -539,7 +539,7 @@ input {
   .slider-wrap {
   }
   .post-content {
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
   .toggleSwip {
     scroll-snap-type: x mandatory;
