@@ -15,7 +15,9 @@ li {
   border-radius: 5px;
   overflow: hidden;
 }
-
+input[type="file"] {
+  display: none;
+}
 .maint-wraper {
   display: flex;
   flex-direction: row;
@@ -120,8 +122,51 @@ li {
   background-color: #000000d1;
   display: none;
 }
+.create-modals_wraper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  background-color: #262626;
+  border-radius: 20px;
+}
+.create-modal {
+  display: flex;
+  width: 570px;
+  height: 590px;
+  flex-direction: column;
+  align-items: center;
+}
+.create-post {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.submit-create {
+  background-color: #0095f6;
+  padding: 9px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+.create-modal > p {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #a8a8a881;
+  font-size: 17px;
+}
 .btn-close_OvPost {
-  transform: translate(97%, 20px);
+  position: absolute;
+  top: 20px;
+  right: 4%;
 }
 .maint-content {
   flex-basis: 80%;
@@ -176,27 +221,61 @@ li {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.btn-nextStr,
-.btn-prevStr {
+
+.btn-post {
   position: absolute;
+  z-index: 5;
+  height: 45px;
+  width: 45px;
+  background-image: url("https://static.cdninstagram.com/rsrc.php/v3/yz/r/quLU_xi5ZD1.png");
+  background-size: 553px 528px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.4;
+}
+.btn-indexPost {
+  position: absolute;
+  bottom: 10px;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+  gap: 4px;
+}
+.btn-indexPost > span {
+  border-radius: 50%;
+  height: 6px;
+  width: 6px;
+  background-color: rgba(255, 255, 255, 0.644);
+}
+.btn-indexPost > .activeImg {
+  background-color: white;
+}
+.btn-nextPost {
+  background-position: -291px -269px;
+  right: 0;
+}
+
+.btn-prevPost {
+  background-position: -291px -223px;
+  left: 0;
+}
+.btnStr {
+  position: absolute;
+  height: 45px;
+  width: 45px;
+  background-image: url("https://static.cdninstagram.com/rsrc.php/v3/yz/r/quLU_xi5ZD1.png");
+  background-size: 553px 528px;
+  top: 10%;
 }
 .btn-nextStr {
-  height: 45px;
-  width: 45px;
-  background-image: url("https://static.cdninstagram.com/rsrc.php/v3/yz/r/quLU_xi5ZD1.png");
   background-position: -291px -269px;
-  background-size: 553px 528px;
   right: 0;
-  top: 10%;
 }
 .btn-prevStr {
-  height: 45px;
-  width: 45px;
-  background-image: url("https://static.cdninstagram.com/rsrc.php/v3/yz/r/quLU_xi5ZD1.png");
   background-position: -291px -223px;
-  background-size: 553px 528px;
   left: 16px;
-  top: 10%;
 }
 .suggest-bar {
   flex-basis: 40%;
@@ -261,8 +340,6 @@ li {
   align-items: center;
 }
 .posts-container {
-  height: 1200px;
-  width: fit-content;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -282,6 +359,7 @@ li {
 
 .post-content {
   border: 1px solid #d8d9da2f;
+  min-width: 100%;
   object-fit: cover;
   display: flex;
   justify-content: center;
@@ -289,6 +367,8 @@ li {
   position: relative;
 }
 .slider-wrap {
+  display: flex;
+  overflow: scroll;
   padding: 0;
 }
 .speaker-wraper {
@@ -322,6 +402,9 @@ li {
 }
 .post-status > span {
   font-weight: 700px;
+}
+.post-slideshow {
+  position: relative;
 }
 .show-comments,
 .show-comments > span,
@@ -440,6 +523,21 @@ li {
     display: none;
   }
   .btn-close_OvPost {
-    transform: translate(90%, 20px);
+    top: 20px;
+  }
+  .create-modal {
+    display: flex;
+    width: 350px;
+    height: 400px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .slider-wrap {
+  }
+  .post-content {
+    scroll-snap-align: start;
+  }
+  .toggleSwip {
+    scroll-snap-type: x mandatory;
   }
 }

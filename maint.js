@@ -40,6 +40,68 @@ const App = {
       $(".create_post-overlay").show();
     }
   },
+  handleScrollStr: function () {
+    $(".btn-prevStr").hide();
+    const toggleBtn = () => {
+      if ($(".story-wraper").scrollLeft() === 0) {
+        $(".btn-prevStr").hide();
+        $(".btn-nextStr").show();
+      } else {
+        $(".btn-prevStr").show();
+        $(".btn-nextStr").hide();
+      }
+    };
+    const width = $(".story-wraper").width();
+    const scroll = (width) => {
+      $(".story-wraper").animate({ scrollLeft: "+=" + width + "px" }, 1000);
+      setTimeout(() => {
+        toggleBtn();
+      }, 500);
+    };
+    $("div.btnStr").on("click", (el) => {
+      $(el.currentTarget).is(".btn-nextStr") ? scroll(width) : scroll(-width);
+    });
+  },
+  handleScrollPost: function () {
+    // $(".btn-prevPost").hide();
+    const toggleBtn = () => {
+      // if ($(".slider-wrap").scrollLeft() > 0) {
+      //   $(".btn-prevPost").show();
+      // } else {
+      //   $(".btn-prevPost").hide();
+      // }
+    };
+
+    var imgIndex = 0;
+    const width = $(".slider-wrap").width();
+    const scroll = (width) => {
+      $(".slider-wrap").animate({ scrollLeft: "+=" + width + "px" }, 500);
+      setTimeout(() => {
+        toggleBtn();
+      }, 500);
+    };
+    $(".slider-wrap").on("swipe", () => {
+      $(this).addClass("toggleSwip");
+      $(this).removeClass("toggleSwip");
+    });
+    const currentIdx = (x) => {
+      console.log((imgIndex += x));
+    };
+    $("div.btn-post").on("click", (el) => {
+      $(`.btn-indexPost span:eq(${imgIndex})`).toggleClass("activeImg");
+      $(el.currentTarget).is(".btn-nextPost")
+        ? $(`.btn-indexPost span:eq(${imgIndex})`)
+            .next()
+            .toggleClass("activeImg")
+        : $(`.btn-indexPost span:eq(${imgIndex})`)
+            .prev()
+            .toggleClass("activeImg");
+      $(el.currentTarget).is(".btn-nextPost")
+        ? scroll(width) & currentIdx(1)
+        : scroll(-width) & currentIdx(-1);
+      // $(`.btn-indexPost span:eq(${imgIndex})`).toggleClass("activeImg");
+    });
+  },
   handleMenu: function () {
     $("div.item").each(function (index) {
       $(this).on("click", () => {
@@ -58,6 +120,8 @@ const App = {
   },
   Start: function () {
     this.handleMenu();
+    this.handleScrollStr();
+    this.handleScrollPost();
   },
 };
 App.Start();
