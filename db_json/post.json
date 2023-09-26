@@ -1,0 +1,62 @@
+[
+  {
+    "postAvt": "/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg",
+    "postUsername": "nhat_minh149",
+    "postTime": "2d",
+    "postImage": [
+      "./src/images/posts_img/post1.jpg",
+      "./src/images/posts_img/post1.jpg",
+      "./src/images/posts_img/post1.jpg"
+    ],
+    "postLike": "1000",
+    "postStatus": "hiphopNVD",
+    "postTotalComment": "100"
+  },
+  {
+    "postAvt": "/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg",
+    "postUsername": "nhat_minh149",
+    "postTime": "2d",
+    "postImage": [
+      "./src/images/posts_img/post1.jpg",
+      "./src/images/posts_img/post1.jpg",
+      "./src/images/posts_img/post1.jpg",
+      "./src/images/posts_img/post1.jpg"
+    ],
+    "postLike": "1000",
+    "postStatus": "hiphopNVD",
+    "postTotalComment": "100"
+  },
+  {
+    "postAvt": "/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg",
+    "postUsername": "nhat_minh149",
+    "postTime": "2d",
+    "postImage": ["./src/images/posts_img/post1.jpg"],
+    "postLike": "1000",
+    "postStatus": "hiphopNVD",
+    "postTotalComment": "100"
+  },
+  {
+    "postAvt": "/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg",
+    "postUsername": "nhat_minh149",
+    "postTime": "2d",
+    "postImage": [
+      "./src/images/posts_img/post1.jpg",
+      "./src/images/posts_img/post1.jpg"
+    ],
+    "postLike": "1000",
+    "postStatus": "hiphopNVD",
+    "postTotalComment": "100"
+  },
+  {
+    "postAvt": "/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg",
+    "postUsername": "nhat_minh149",
+    "postTime": "2d",
+    "postImage": [
+      "./src/images/posts_img/post1.jpg",
+      "/src/images/posts_img/Snapinsta.app_video_380036193_873326773674251_6811143881995806812_n.mp4"
+    ],
+    "postLike": "1000",
+    "postStatus": "hiphopNVD",
+    "postTotalComment": "100"
+  }
+]

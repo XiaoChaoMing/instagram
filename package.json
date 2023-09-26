@@ -1,0 +1,11 @@
+{
+  "name": "instagram-clone",
+  "version": "1.0.0",
+  "description": "\"# instagram\"",
+  "main": "maint.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "minh",
+  "license": "ISC"
+}

@@ -166,7 +166,8 @@ input {
   border-bottom: 1px solid #a8a8a881;
   font-size: 17px;
 }
-.btn-close_OvPost {
+.btn-close_OvPost,
+.btn-close_comment {
   position: absolute;
   top: 20px;
   right: 4%;
@@ -194,18 +195,18 @@ input {
 }
 .maint-story {
   position: relative;
-  padding: 0 10px 0 25px;
+  padding: 0 25px 0 25px;
   margin-bottom: 40px;
 }
 .story-wraper {
   height: 90px;
   width: 100%;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   overflow: scroll;
 }
 .story {
-  max-width: 66px;
+  min-width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -274,7 +275,7 @@ input {
 }
 .btn-nextStr {
   background-position: -291px -269px;
-  right: 0;
+  right: 16px;
 }
 .btn-prevStr {
   background-position: -291px -223px;
@@ -427,6 +428,18 @@ input {
   outline: none;
   border: none;
   flex-grow: 1;
+}
+.show-comments {
+  cursor: pointer;
+}
+.comment-overlay {
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: #000000d1;
 }
 .blue {
   width: fit-content;

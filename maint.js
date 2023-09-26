@@ -1,5 +1,198 @@
+import strData from "./db_json/story.json" assert { type: "json" };
+import postData from "./db_json/post.json" assert { type: "json" };
 const App = {
   isLogin: false,
+  renderUI: function () {
+    let postImgList;
+    let indexList;
+    const btnPost = `<div class="btn-nextPost btn-post"></div>
+    <div class="btn-prevPost btn-post"></div>`;
+    const strList = strData.map((item) => {
+      return `<div class="story">
+      <div class="str-Useravt">
+        <img
+          height="54"
+          width="54"
+          src="${item.imgPath}"
+          alt=""
+        />
+      </div>
+      <div class="str-userName">${item.username}</div>
+    </div>`;
+    });
+    $(".story-wraper").html(strList.join(""));
+
+    // render post
+    const postLists = postData.map((item) => {
+      postImgList = item.postImage.map((img) => {
+        if (img.includes(".mp4")) {
+          return `
+          <li class="post-content  ">
+          <video
+          loop="true"
+          autoplay="autoplay"
+          playsinline
+          muted
+          width="75%"
+        >
+          <source
+            src="${img}"
+            type=""
+          />
+        </video>
+       
+        <div class="speaker-wraper">
+          <svg
+            aria-label="Audio is playing"
+            class="x1lliihq x1n2onr6"
+            color="rgb(255, 255, 255)"
+            fill="rgb(255, 255, 255)"
+            height="12"
+            role="img"
+            viewBox="0 0 24 24"
+            width="12"
+          >
+            <title>Audio is playing</title>
+            <path
+              d="M16.636 7.028a1.5 1.5 0 1 0-2.395 1.807 5.365 5.365 0 0 1 1.103 3.17 5.378 5.378 0 0 1-1.105 3.176 1.5 1.5 0 1 0 2.395 1.806 8.396 8.396 0 0 0 1.71-4.981 8.39 8.39 0 0 0-1.708-4.978Zm3.73-2.332A1.5 1.5 0 1 0 18.04 6.59 8.823 8.823 0 0 1 20 12.007a8.798 8.798 0 0 1-1.96 5.415 1.5 1.5 0 0 0 2.326 1.894 11.672 11.672 0 0 0 2.635-7.31 11.682 11.682 0 0 0-2.635-7.31Zm-8.963-3.613a1.001 1.001 0 0 0-1.082.187L5.265 6H2a1 1 0 0 0-1 1v10.003a1 1 0 0 0 1 1h3.265l5.01 4.682.02.021a1 1 0 0 0 1.704-.814L12.005 2a1 1 0 0 0-.602-.917Z"
+            ></path>
+          </svg>
+        </div>
+        </li>
+          `;
+        } else {
+          return `<li class="post-content  ">
+          <img src="${img}" alt="" />
+        </li>`;
+        }
+      });
+
+      if (item.postImage.length > 1) {
+        indexList = item.postImage.map((item) => {
+          return `
+            <span></span>
+            `;
+        });
+      } else {
+        indexList = [];
+      }
+
+      return `
+      <div class="maint-post">
+      <div class="post-info">
+        <div class="post-avt">
+          <img
+            height="32"
+            width="32"
+            src="${item.postAvt}"
+            alt=""
+          />
+        </div>
+        <div class="post-username">${item.postUsername}</div>
+        <span>•</span>
+        <div class="post-time">${item.postTime}</div>
+      </div>
+      <div class="post-slideshow">
+        ${item.postImage.length > 1 ? btnPost : null}
+        <div class="btn-indexPost">
+        ${indexList.join("")}
+        </div>
+        <ul class="slider-wrap">
+          ${postImgList.join("")}
+        </ul>
+      </div>
+      <div class="interact-wraper">
+        <div class="interact-items">
+          <div class="interact-icons">
+            <div class="like">
+              <svg
+                aria-label="Like"
+                class="x1lliihq x1n2onr6"
+                color="rgb(245, 245, 245)"
+                fill="rgb(245, 245, 245)"
+                height="24"
+                role="img"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <title>Like</title>
+                <path
+                  d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"
+                ></path>
+              </svg>
+            </div>
+            <div class="comments">
+              <svg
+                aria-label="Comment"
+                class="x1lliihq x1n2onr6"
+                color="rgb(245, 245, 245)"
+                fill="rgb(245, 245, 245)"
+                height="24"
+                role="img"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <title>Comment</title>
+                <path
+                  d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="save">
+            <svg
+              aria-label="Save"
+              class="x1lliihq x1n2onr6"
+              color="rgb(245, 245, 245)"
+              fill="rgb(245, 245, 245)"
+              height="24"
+              role="img"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <title>Save</title>
+              <polygon
+                fill="none"
+                points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              ></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="post-like">
+          <span>${item.postLike}</span>
+          <span>likes</span>
+        </div>
+        <div class="post-status">
+          <span class="post-username">nhat_minh149</span>
+          <p>hiphopNVD</p>
+        </div>
+        <div class="comments-wraper">
+          <div class="show-comments">
+            View all
+            <span class="total-comments">${item.postTotalComment}</span>
+            comment
+          </div>
+          <div class="add-comment">
+            <input type="text" name="" id="" placeholder="Add a comment..." />
+            <i class="ri-emotion-line"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+      `;
+    });
+    $(".posts-container").html(postLists.join(""));
+    // $(".slider-wrap").html(postImgList.join(""));
+    // $(".btn-indexPost").html(indexList.join(""));
+  },
   handleSearch: function () {
     if ($(".item-search").hasClass("blue")) {
       $(".maint-logo").html(`<svg
@@ -41,22 +234,9 @@ const App = {
     }
   },
   handleScrollStr: function () {
-    $(".btn-prevStr").hide();
-    const toggleBtn = () => {
-      if ($(".story-wraper").scrollLeft() === 0) {
-        $(".btn-prevStr").hide();
-        $(".btn-nextStr").show();
-      } else {
-        $(".btn-prevStr").show();
-        $(".btn-nextStr").hide();
-      }
-    };
     const width = $(".story-wraper").width();
     const scroll = (width) => {
-      $(".story-wraper").animate({ scrollLeft: "+=" + width + "px" }, 1000);
-      setTimeout(() => {
-        toggleBtn();
-      }, 500);
+      $(".story-wraper").animate({ scrollLeft: "+=" + width }, 1000);
     };
     $("div.btnStr").on("click", (el) => {
       $(el.currentTarget).is(".btn-nextStr") ? scroll(width) : scroll(-width);
@@ -136,6 +316,13 @@ const App = {
       // $(`.btn-indexPost span:eq(${imgIndex})`).toggleClass("activeImg");
     });
   },
+  handleShowComment: function () {
+    $("div.show-comments").each(function (index) {
+      $(this).on("click", () => {
+        console.log(this);
+      });
+    });
+  },
   handleMenu: function () {
     $("div.item").each(function (index) {
       $(this).on("click", () => {
@@ -151,11 +338,16 @@ const App = {
     $(".btn-close_OvPost").on("click", () => {
       $(".create_post-overlay").hide();
     });
+    $(".btn-close_comment").on("click", () => {
+      $(".comment-overlay").hide();
+    });
   },
   Start: function () {
+    this.renderUI();
     this.handleMenu();
     this.handleScrollStr();
     this.handleScrollPost();
+    this.handleShowComment();
   },
 };
 App.Start();
