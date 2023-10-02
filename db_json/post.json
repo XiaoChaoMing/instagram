@@ -5,8 +5,7 @@
     "postTime": "2d",
     "postImage": [
       "./src/images/posts_img/post1.jpg",
-      "./src/images/posts_img/post1.jpg",
-      "./src/images/posts_img/post1.jpg"
+      "./src/images/posts_img/post2.jpg"
     ],
     "postLike": "1000",
     "postStatus": "hiphopNVD",
@@ -17,10 +16,10 @@
     "postUsername": "nhat_minh149",
     "postTime": "2d",
     "postImage": [
-      "./src/images/posts_img/post1.jpg",
-      "./src/images/posts_img/post1.jpg",
-      "./src/images/posts_img/post1.jpg",
-      "./src/images/posts_img/post1.jpg"
+      "./src/images/posts_img/post3.jpg",
+      "./src/images/posts_img/post4.jpg",
+      "./src/images/posts_img/post5.jpg",
+      "./src/images/posts_img/post6.mp4"
     ],
     "postLike": "1000",
     "postStatus": "hiphopNVD",
@@ -30,7 +29,7 @@
     "postAvt": "/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg",
     "postUsername": "nhat_minh149",
     "postTime": "2d",
-    "postImage": ["./src/images/posts_img/post1.jpg"],
+    "postImage": ["./src/images/posts_img/post7.jpg"],
     "postLike": "1000",
     "postStatus": "hiphopNVD",
     "postTotalComment": "100"
@@ -40,8 +39,8 @@
     "postUsername": "nhat_minh149",
     "postTime": "2d",
     "postImage": [
-      "./src/images/posts_img/post1.jpg",
-      "./src/images/posts_img/post1.jpg"
+      "./src/images/posts_img/post8.jpg",
+      "./src/images/posts_img/post9.jpg"
     ],
     "postLike": "1000",
     "postStatus": "hiphopNVD",

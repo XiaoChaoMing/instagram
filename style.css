@@ -171,6 +171,7 @@ input {
   position: absolute;
   top: 20px;
   right: 4%;
+  z-index: 999;
 }
 .maint-content {
   flex-basis: 80%;
@@ -367,7 +368,7 @@ input {
   object-fit: cover;
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: center;
   position: relative;
 }
 .slider-wrap {
@@ -438,11 +439,157 @@ input {
   overflow: hidden;
   width: 100%;
   height: 100%;
+  z-index: 99;
+  background-color: #000000d1;
+}
+.comment-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  background-color: #262626;
+  height: 700px;
+  width: 1100px;
+}
+.comment-overlay {
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
   z-index: 999;
   background-color: #000000d1;
 }
+.comment-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  background-color: black;
+  min-height: 700px;
+  min-width: 1200px;
+}
+.postSlide-modal {
+  flex-basis: 60%;
+  position: relative;
+}
+.md_maint-post {
+  padding: 0;
+  display: flex;
+  overflow: scroll;
+  margin: 0;
+  align-items: center;
+}
+.md_post-content {
+  min-width: 100%;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 700px;
+  position: relative;
+}
+.md_interact-wraper {
+  flex-basis: 35%;
+  background-color: black;
+  height: 700px;
+  border-left: solid 1px #262626;
+  display: flex;
+  flex-direction: column;
+}
+.md_interact-header {
+  padding: 15px;
+  border-bottom: solid 1px #262626;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.md_interact-hd-wraper {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 300;
+  gap: 15px;
+}
+.md_post-status {
+  font-size: 18px;
+}
+.md_interact-comment {
+  padding: 15px;
+  flex-grow: 1;
+  overflow: scroll;
+}
+.md_comment {
+  display: flex;
+  align-items: center;
+}
+.md_comment-wraper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.md-maint-comment {
+  font-size: 16px;
+}
+.comment-avt {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.i4-name {
+  font-size: 15px;
+  font-weight: 300;
+}
+.i4-comment {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.md_other-interact {
+  padding: 15px;
+}
+.md-total-like {
+  font-size: 13px;
+}
+.add-comment {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.btn-cf-comment {
+  color: #0095f6;
+  font-size: 14px;
+}
 .blue {
   width: fit-content;
+}
+.emoji {
+  position: relative;
+}
+.emoji-picker {
+  background-color: #262626;
+  position: absolute;
+  transform: translateY(calc(-100% - 40px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  max-height: 400px;
+  width: 342px;
+  overflow: scroll;
+  display: none;
+}
+.emo-wraper {
+  display: grid;
+  grid-template-rows: 40px;
+  grid-template-columns: repeat(7, 40px);
+  gap: 4px;
+  padding: 0 8px;
 }
 @media screen and (max-width: 600px) {
   .maint-wraper {
