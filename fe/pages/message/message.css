@@ -1,0 +1,111 @@
+.MSmaint-content {
+  flex-basis: 80%;
+  height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: end;
+  overflow: scroll;
+}
+.friend-list {
+  flex-basis: 25%;
+  padding: 10px;
+  border-right: 1px solid #262626;
+}
+.fl-maint {
+  margin-top: 20px;
+}
+.fl-title {
+  font-weight: 600;
+}
+.friend-avt,
+.user-avt {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.friendName {
+  font-size: medium;
+}
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.friend-status {
+  flex-grow: 1;
+  height: 8px;
+  display: flex;
+  justify-content: end;
+}
+.friend-status > span {
+  display: block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: green;
+}
+.user-i4,
+.friend-i4 {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.chat-box {
+  flex-basis: 75%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.chat-header {
+  border-bottom: 1px solid #262626;
+  padding-bottom: 10px;
+}
+.chat-box_maint {
+  flex-grow: 1;
+  padding-top: 10px;
+  overflow: hidden;
+}
+.input-message {
+  margin: 3px;
+  border: 1px solid #262626;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+  gap: 7px;
+  padding: 0 10px;
+}
+.input-message input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 82%;
+}
+.chat-box_maint {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.message {
+  display: flex;
+  align-items: start;
+  gap: 15px;
+}
+.mess-content {
+  padding: 10px;
+  background-color: #262626;
+  border-radius: 20px;
+  max-width: 500px;
+  overflow-wrap: break-word;
+}
+.mess-content p {
+  margin-bottom: 0;
+  font-size: small;
+  line-height: 19px;
+}
+.send-message {
+  display: flex;
+  justify-content: end;
+}
+.send-message > .mess-content {
+  background-color: #3797f0;
+}
