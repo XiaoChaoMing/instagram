@@ -1,17 +1,17 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("./../bd-connection");
 const User = require("./../models/User");
-const Account = sequelize.define(
-  "Accounts",
+const Follower = sequelize.define(
+  "Follower",
   {
-    userName: {
-      type: DataTypes.STRING,
+    folowerId: {
+      type: DataTypes.INTEGER,
     },
-    Password: {
-      type: DataTypes.STRING,
+    followingId: {
+      type: DataTypes.INTEGER,
     },
   },
   { timestamps: true }
 );
 
-module.exports = Account;
+module.exports = Follower;

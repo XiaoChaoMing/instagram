@@ -4,7 +4,9 @@
     "password": "1",
     "database": "instagram_ms",
     "host": "127.0.0.1",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "logging": false,
+    "timezone": "+07:00"
   },
   "test": {
     "username": "root",

@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const port = 3001;
-const db = require("./models");
+
+require("./bd-connection");
+require("./associate");
 app.use(express.json());
-const Connect = require("./bd-connection");
-Connect();
 
 app.listen(port, () => {
-  console.log(`listen on port ${port}`);
+  console.log(`Listening on port ${port}`);
 });

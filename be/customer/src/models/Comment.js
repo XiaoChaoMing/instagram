@@ -1,17 +1,20 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("./../bd-connection");
 const User = require("./../models/User");
-const Account = sequelize.define(
-  "Accounts",
+const Comment = sequelize.define(
+  "Comment",
   {
-    userName: {
-      type: DataTypes.STRING,
+    UserId: {
+      type: DataTypes.INTEGER,
     },
-    Password: {
+    postId: {
+      type: DataTypes.INTEGER,
+    },
+    commentText: {
       type: DataTypes.STRING,
     },
   },
   { timestamps: true }
 );
 
-module.exports = Account;
+module.exports = Comment;

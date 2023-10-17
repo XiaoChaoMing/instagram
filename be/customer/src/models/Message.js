@@ -1,17 +1,23 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("./../bd-connection");
 const User = require("./../models/User");
-const PostMedia = sequelize.define(
-  "PostMedia",
+const Message = sequelize.define(
+  "Message",
   {
-    Postid: {
+    messageId: {
       type: DataTypes.INTEGER,
     },
-    mediaFile: {
+    fromUserId: {
+      type: DataTypes.INTEGER,
+    },
+    toUserId: {
+      type: DataTypes.INTEGER,
+    },
+    messageText: {
       type: DataTypes.STRING,
     },
   },
   { timestamps: true }
 );
 
-module.exports = PostMedia;
+module.exports = Message;

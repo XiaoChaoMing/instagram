@@ -1,17 +1,23 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("instagram_ms", "sa", "1", {
-  host: "localhost",
-  dialect: "mssql",
-  logging: false,
-});
+const sequelize = new Sequelize(
+  "instagram_ms",
+  "sa",
+  "1",
+  {
+    host: "localhost",
+    dialect: "mssql",
+    logging: false,
+  },
+  { timestamps: true }
+);
 
 const Connect = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log("Kết nối thành công.");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error("Không thể kết nối tới database", error);
   }
 };
-
-module.exports = Connect;
+module.exports = sequelize;
+Connect();

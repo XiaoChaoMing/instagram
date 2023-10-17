@@ -1,34 +1,38 @@
-"use strict";
-const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      User.hasOne(Account.AccountId);
-    }
-  }
-  User.init(
-    {
-      UserId: DataTypes.INTEGER,
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      nickName: DataTypes.STRING,
-      birthday: DataTypes.DATE,
-      phoneNumber: DataTypes.CHAR(250),
-      email: DataTypes.STRING,
-      AccountId: DataTypes.INTEGER,
-      notifiId: DataTypes.INTEGER,
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("./../bd-connection");
+const Account = require("./Account");
+const User = sequelize.define(
+  "Users",
+  {
+    firstName: {
+      type: DataTypes.STRING,
     },
-    {
-      sequelize,
-      modelName: "User",
-    }
-  );
+    lastName: {
+      type: DataTypes.STRING,
+    },
+    nickName: {
+      type: DataTypes.STRING,
+    },
+    Avatar: {
+      type: DataTypes.STRING,
+    },
+    birthDay: {
+      type: DataTypes.DATEONLY,
+    },
+    phoneNum: {
+      type: DataTypes.STRING,
+    },
+    Email: {
+      type: DataTypes.STRING,
+    },
+    AccountId: {
+      type: DataTypes.INTEGER,
+    },
+    notifyId: {
+      type: DataTypes.INTEGER,
+    },
+  },
+  { timestamps: true }
+);
 
-  return User;
-};
+module.exports = User;
