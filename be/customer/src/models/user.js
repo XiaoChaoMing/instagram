@@ -25,9 +25,7 @@ const User = sequelize.define(
     Email: {
       type: DataTypes.STRING,
     },
-    AccountId: {
-      type: DataTypes.INTEGER,
-    },
+
     notifyId: {
       type: DataTypes.INTEGER,
     },

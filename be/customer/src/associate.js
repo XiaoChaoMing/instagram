@@ -1,19 +1,23 @@
 const User = require("./models/User");
 const Account = require("./models/Account");
-// const Album = require("./models/Album");
-// const Comment = require("./models/Comment");
+const Album = require("./models/Album");
+const Comment = require("./models/Comment");
 const Follower = require("./models/Follower");
-// const Message = require("./models/Message");
-// const Notify = require("./models/Notify");
-// const NotifyType = require("./models/NotifyType");
-// const Post = require("./models/Post");
-// const PostMedia = require("./models/PostMedia");
-// const PostType = require("./models/PostType");
-// const Reaction = require("./models/Reaction");
+const Message = require("./models/Message");
+const Notify = require("./models/Notify");
+const NotifyType = require("./models/NotifyType");
+const Post = require("./models/Post");
+const PostMedia = require("./models/PostMedia");
+const PostType = require("./models/PostType");
+const Reaction = require("./models/Reaction");
 const sequelize = require("./bd-connection");
 const associate = () => {
   User.belongsTo(Account, {
-    foreignKey: "AccountId",
+    foreignKey: "accountId",
+    targetKey: "id",
+  });
+  User.belongsTo(Notify, {
+    foreignKey: "notifyId",
     targetKey: "id",
   });
   Follower.belongsTo(User, {
@@ -24,6 +28,54 @@ const associate = () => {
     foreignKey: "followingId",
     targetKey: "id",
   });
+  Album.belongsTo(User, {
+    foreignKey: "userId",
+    targetKey: "id",
+  });
+  Album.belongsTo(Post, {
+    foreignKey: "postId",
+    targetKey: "id",
+  });
+  Post.belongsTo(User, {
+    foreignKey: "userId",
+    targetKey: "id",
+  });
+  Post.belongsTo(PostType, {
+    foreignKey: "postTypeId",
+    targetKey: "id",
+  });
+  Post.belongsTo(PostMedia, {
+    foreignKey: "mediaId",
+    targetKey: "id",
+  });
+  Comment.belongsTo(User, {
+    foreignKey: "userId",
+    targetKey: "id",
+  });
+  Comment.belongsTo(Post, {
+    foreignKey: "postId",
+    targetKey: "id",
+  });
+  Reaction.belongsTo(User, {
+    foreignKey: "userId",
+    targetKey: "id",
+  });
+  Reaction.belongsTo(Post, {
+    foreignKey: "postId",
+    targetKey: "id",
+  });
+  Message.belongsTo(User, {
+    foreignKey: "fromUserId",
+    targetKey: "id",
+  });
+  Message.belongsTo(User, {
+    foreignKey: "toUserId",
+    targetKey: "id",
+  });
+  Notify.belongsTo(NotifyType, {
+    foreignKey: "notifyTypeId",
+    targetKey: "id",
+  });
   sequelize
     .sync()
     .then(() => {
@@ -32,5 +84,14 @@ const associate = () => {
     .catch((err) => {
       console.log(err);
     });
+  // drop all table
+  // sequelize
+  //   .sync() // create the database table for our model(s)
+  //   .then(function () {
+  //     // do some work
+  //   })
+  //   .then(function () {
+  //     return sequelize.drop(); // drop all tables in the db
+  //   });
 };
 associate();

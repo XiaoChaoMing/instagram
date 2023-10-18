@@ -4,12 +4,6 @@ const User = require("./../models/User");
 const Comment = sequelize.define(
   "Comment",
   {
-    UserId: {
-      type: DataTypes.INTEGER,
-    },
-    postId: {
-      type: DataTypes.INTEGER,
-    },
     commentText: {
       type: DataTypes.STRING,
     },

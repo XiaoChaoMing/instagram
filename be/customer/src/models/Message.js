@@ -7,12 +7,6 @@ const Message = sequelize.define(
     messageId: {
       type: DataTypes.INTEGER,
     },
-    fromUserId: {
-      type: DataTypes.INTEGER,
-    },
-    toUserId: {
-      type: DataTypes.INTEGER,
-    },
     messageText: {
       type: DataTypes.STRING,
     },

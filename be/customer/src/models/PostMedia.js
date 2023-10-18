@@ -4,9 +4,6 @@ const User = require("./../models/User");
 const PostMedia = sequelize.define(
   "PostMedia",
   {
-    Postid: {
-      type: DataTypes.INTEGER,
-    },
     mediaFile: {
       type: DataTypes.STRING,
     },
