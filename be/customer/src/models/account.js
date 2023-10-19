@@ -10,6 +10,9 @@ const Account = sequelize.define(
     Password: {
       type: DataTypes.STRING,
     },
+    Salt: {
+      type: DataTypes.STRING,
+    },
   },
   { timestamps: true }
 );

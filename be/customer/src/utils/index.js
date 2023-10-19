@@ -1,8 +1,19 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { APP_SECRET } = require("./../config/config");
-module.exports.HashPassword = async (password) => {
-  return await bcrypt.hash(password);
+module.exports.GenerateSalt = async () => {
+  return await bcrypt.genSalt();
+};
+module.exports.HashPassword = async (password, salt) => {
+  return await bcrypt.hash(password, salt);
+};
+
+module.exports.ValidatePassword = async (
+  enteredPassword,
+  savedPassword,
+  salt
+) => {
+  return (await this.HashPassword(enteredPassword, salt)) === savedPassword;
 };
 module.exports.GenerateSignature = async (payload) => {
   try {
@@ -12,7 +23,6 @@ module.exports.GenerateSignature = async (payload) => {
     return error;
   }
 };
-
 module.exports.ValidateSignature = async (req) => {
   try {
     const signature = req.get("Authorization");
@@ -23,5 +33,12 @@ module.exports.ValidateSignature = async (req) => {
   } catch (error) {
     console.log(error);
     return false;
+  }
+};
+module.exports.FormateData = (data) => {
+  if (data) {
+    return { data };
+  } else {
+    throw new Error("Data Not found!");
   }
 };
