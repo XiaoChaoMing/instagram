@@ -1,15 +1,7 @@
-import { io } from "socket.io-client";
+import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
-const socket = io("http://localhost:3000");
+const socket = io();
 
 socket.on("connect", () => {
   console.log("ket noi thanh cong");
 });
-
-socket.on("message", (data) => {
-  console.log("dcmm", data);
-});
-
-socket.emit("message", "from client with love");
-
-socket.disconnect();

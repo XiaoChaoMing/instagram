@@ -3,16 +3,16 @@ const PostMedia = require("./../models/PostMedia");
 const Reaction = require("./../models/Reaction");
 const Comment = require("./../models/Comment");
 class PostRepository {
-  async CreatePost({ postinput }) {
+  async CreatePost(postinput) {
     const { UserId, status, Types, mediaFiles } = postinput;
     await Post.create({
-      UserId: UserId,
-      status: status,
-      Types: Types,
+      userId: UserId,
+      Status: status,
+      postTypeId: Types,
     });
     await PostMedia.create({
       PostId: await this.getPostid(),
-      mediaFiles: mediaFiles,
+      mediaFile: mediaFiles,
     });
   }
   async updatePost({ postinput }) {
@@ -26,17 +26,19 @@ class PostRepository {
       { where: { PostId: PostId } }
     );
   }
-  async reactPost({ postinput }) {
+  async reactPost(postinput) {
+    console.log(postinput);
     const { PostId, UserId, comment } = postinput;
+    console.log({ PostId, UserId, comment });
     await Reaction.create({
-      UserId: UserId,
-      PostId: PostId,
+      userId: UserId,
+      postId: PostId,
     });
     if (PostId && UserId && comment) {
       await Comment.create({
-        UserId: UserId,
-        PostId: PostId,
-        comment: comment,
+        userId: UserId,
+        postId: PostId,
+        commentText: comment,
       });
     }
   }

@@ -6,7 +6,8 @@ const { PORT } = require("./config/config");
 const expressApp = require("./express-app");
 const { join } = require("path");
 const server = require("http").createServer(app);
-const io = require("socket.io")(server);
+const { Server } = require("socket.io");
+const io = new Server(server);
 const corsOptions = {
   origin: "http://127.0.0.1:8001",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

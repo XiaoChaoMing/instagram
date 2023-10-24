@@ -47,10 +47,10 @@ module.exports = (app) => {
     await services.SignIn({ userName, Password });
     res.json({ status: 200 });
   });
-  router.get("/updateProfile", async (req, res) => {
-    res.json({ status: 201 });
-  });
-  app.get("/profile", UserAuth, async (req, res, next) => {
+  // router.get("/updateProfile", async (req, res) => {
+  //   res.json({ status: 201 });
+  // });
+  app.get("/profile", async (req, res, next) => {
     res.json({ status: 200 });
   });
   app.post("/follow", async (req, res, next) => {});

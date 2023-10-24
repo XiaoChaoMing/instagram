@@ -66,6 +66,5 @@ class CustomerService {
     });
     return unq;
   }
-  async CreatePost(postInfo) {}
 }
 module.exports = CustomerService;
