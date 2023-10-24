@@ -44,8 +44,8 @@ const associate = () => {
     foreignKey: "postTypeId",
     targetKey: "id",
   });
-  Post.belongsTo(PostMedia, {
-    foreignKey: "mediaId",
+  PostMedia.belongsTo(Post, {
+    foreignKey: "PostId",
     targetKey: "id",
   });
   Comment.belongsTo(User, {

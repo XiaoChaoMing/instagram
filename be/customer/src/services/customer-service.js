@@ -1,3 +1,4 @@
+const CustomerRepository = require("./../repository/Customer-repository");
 const Account = require("./../models/Account");
 const User = require("./../models/User");
 const {
@@ -9,6 +10,10 @@ const {
 } = require("./../utils/index");
 require("./../utils/index");
 class CustomerService {
+  constructor() {
+    this.repository = new CustomerRepository();
+  }
+
   async SignIn(userInput) {
     const { userName, Password } = userInput;
     const existAccount = await Account.findOne({
@@ -32,32 +37,35 @@ class CustomerService {
       }
     }
   }
-  async CreateAccount(accountInfo) {
-    const { userName, Password } = accountInfo;
+  async Register(accountInfo) {
+    const {
+      userName,
+      Password,
+      firstName,
+      lastName,
+      Avatar,
+      birthDay,
+      phoneNum,
+      Email,
+    } = accountInfo;
     const salt = await GenerateSalt();
     const userPassword = await HashPassword(Password, salt);
-    await Account.create({
-      userName: userName,
-      Password: userPassword,
-      Salt: salt,
+    const unq = await this.repository.createAccount({
+      userName,
+      userPassword,
+      salt,
+      firstName,
+      lastName,
+      Avatar,
+      birthDay,
+      phoneNum,
+      Email,
     });
     const token = await GenerateSignature({
       userName: userName,
     });
+    return unq;
   }
-
-  async checkAccountId(AccountId) {
-    const existAccount = Account.findAll({
-      where: {
-        id: AccountId,
-      },
-    });
-    return existAccount ? true : false;
-  }
-
-  async CreateUser(userInfo) {
-    const { firtsName, lastName, nickName, Avatar, birthDay, phoneNum, Email } =
-      userInfo;
-  }
+  async CreatePost(postInfo) {}
 }
 module.exports = CustomerService;

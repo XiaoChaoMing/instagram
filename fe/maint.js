@@ -511,6 +511,7 @@ const App = {
       });
     });
   },
+
   Start: function () {
     this.renderUI();
     this.handleMenu();
