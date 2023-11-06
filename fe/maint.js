@@ -354,12 +354,63 @@ const App = {
       $(".item-search").css("border", "1px solid white");
     }
   },
-  handleCreatePost: function () {
+  toggleCreatePost: function () {
     if ($(".item-search").hasClass("blue")) {
       $(".create_post-overlay").hide();
     } else {
       $(".create_post-overlay").show();
     }
+  },
+  handlePostCreated: function () {
+    const stepTracking = 0;
+    const width = 570;
+    $(".input-file").on("change", (e) => {
+      $(".crph").show();
+      const fileList = [];
+      for (var i = 0; i < e.target.files.length; i++) {
+        fileList.push(e.target.files[i]);
+      }
+      const postItems = Promise.all(
+        fileList.map((item) => {
+          console.log(item);
+          return new Promise((resolve, reject) => {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+              if (item.name.includes(".mp4")) {
+                resolve(`<div class="imgWraper">
+                <video autoplay replay width="100%" height="100%" src="${reader.result}"></video>
+                </div>`);
+              }
+              resolve(`
+            <div class="imgWraper">
+            <img width="100%" height="100%" src="${reader.result}"/>
+            </div>
+            `);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(item);
+          });
+        })
+      )
+        .then((results) => {
+          $(".crpContainer").html(results);
+          $(".crpControll").show();
+          $(".crpWraper").show();
+          $(".create-post").hide();
+          $(".create-status").show();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+
+    const scroll = (width) => {
+      $(".crpWraper").animate({ scrollLeft: "+=" + width });
+    };
+    $(".crpbtn").on("click", (el) => {
+      $(el.currentTarget).is(".btn-next") ? scroll(width) : scroll(-width);
+    });
+    $(".crph").on("click", (el) => {});
   },
   handleScrollStr: function () {
     const width = $(".story-wraper").width();
@@ -462,13 +513,17 @@ const App = {
           App.handleSearch();
           $(this).toggleClass("blue");
         } else if (index === 5) {
-          App.handleCreatePost();
+          App.toggleCreatePost();
           $(this).toggleClass("blue");
         }
       });
     });
     $(".btn-close_OvPost").on("click", () => {
       $(".create_post-overlay").hide();
+      $(".create-post").show();
+      $(".crpWraper").hide();
+      $(".create-status").hide();
+      $(".crph").hide();
     });
     $(".btn-close_comment").on("click", () => {
       $(".comment-overlay").hide();
@@ -519,6 +574,7 @@ const App = {
     this.handleScrollPost();
     this.handleShowComment();
     this.handleEmoPiker();
+    this.handlePostCreated();
   },
 };
 App.Start();

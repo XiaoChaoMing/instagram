@@ -1,7 +1,18 @@
-import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+let data = localStorage.getItem("loggedInUser");
+data = JSON.parse(data);
+let id = data.data.id;
+window.Mysocket = io({
+  query: {
+    userId: id,
+  },
+});
 
-const socket = io();
-
-socket.on("connect", () => {
+window.Mysocket.on("connect", () => {
   console.log("ket noi thanh cong");
+});
+window.Mysocket.on("apiEvent", (data) => {
+  console.log(data);
+});
+window.Mysocket.on("followEvent", (data) => {
+  console.log(data);
 });

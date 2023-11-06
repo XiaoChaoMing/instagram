@@ -1,6 +1,5 @@
 const User = require("./models/User");
 const Account = require("./models/Account");
-const Album = require("./models/Album");
 const Comment = require("./models/Comment");
 const Follower = require("./models/Follower");
 const Message = require("./models/Message");
@@ -10,14 +9,16 @@ const Post = require("./models/Post");
 const PostMedia = require("./models/PostMedia");
 const PostType = require("./models/PostType");
 const Reaction = require("./models/Reaction");
+const UserProfile = require("./models/UserProfile");
+const BanList = require("./models/BanList");
 const sequelize = require("./bd-connection");
 const associate = () => {
   User.belongsTo(Account, {
     foreignKey: "accountId",
     targetKey: "id",
   });
-  User.belongsTo(Notify, {
-    foreignKey: "notifyId",
+  UserProfile.belongsTo(User, {
+    foreignKey: "userId",
     targetKey: "id",
   });
   Follower.belongsTo(User, {
@@ -28,14 +29,19 @@ const associate = () => {
     foreignKey: "followingId",
     targetKey: "id",
   });
-  Album.belongsTo(User, {
-    foreignKey: "userId",
+  // Album.belongsTo(User, {
+  //   foreignKey: "userId",
+  //   targetKey: "id",
+  // });
+  // Album.belongsTo(Post, {
+  //   foreignKey: "postId",
+  //   targetKey: "id",
+  // });
+  BanList.belongsTo(Account, {
+    foreignKey: "accountId",
     targetKey: "id",
   });
-  Album.belongsTo(Post, {
-    foreignKey: "postId",
-    targetKey: "id",
-  });
+
   Post.belongsTo(User, {
     foreignKey: "userId",
     targetKey: "id",
@@ -74,6 +80,10 @@ const associate = () => {
   });
   Notify.belongsTo(NotifyType, {
     foreignKey: "notifyTypeId",
+    targetKey: "id",
+  });
+  Notify.belongsTo(User, {
+    foreignKey: "userId",
     targetKey: "id",
   });
   sequelize

@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const { customer, post } = require("./api");
-
-module.exports = async (app) => {
+const path = require("path");
+module.exports = async (app, io, storage) => {
   app.use(express.json());
   app.use(cors());
-  app.use(express.static(__dirname + "/public"));
+  app.use(express.static(path.join(__dirname, "./../../../fe")));
 
   //api
 
-  customer(app);
-  post(app);
+  customer(app, io);
+  post(app, io, storage);
 };

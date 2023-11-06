@@ -1,8 +1,0 @@
-GET http://localhost:8001/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Im1pbmgiLCJpYXQiOjE2OTc2OTEzMzIsImV4cCI6MTY5ODk4NzMzMn0.Fb7_27m7xQGZG9y4kbdq19boxKKpctVlVzfk29p5TC4
-
-POST http://localhost:8001/register
-{
-       "userName":"minh",
-        "Password":"1234"
-}

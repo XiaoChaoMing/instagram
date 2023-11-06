@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- remix icon -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <!-- angular js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="./../../base.css" />
+    <link rel="stylesheet" href="register.css" />
+    <title>Document</title>
+  </head>
+  <body ng-app="instarApp" ng-controller="RegisterCtrl">
+    <div class="register-wraper container split">
+      <div class="maint-register">
+        <div class="slider-register">
+          <img src="/src/images/login-slider/screenshot1.png" alt="" />
+        </div>
+        <div class="register-form_wraper">
+          <div class="register-form">
+            <div class="logo-insta">
+              <i></i>
+            </div>
+            <form ng-submit="register(user)" class="form-wraper">
+              <input
+                class="ip_firtName"
+                placeholder="Fisrt Name"
+                type="text"
+                name=""
+                id=""
+                ng-model="user.firstName"
+              />
+              <input
+                class="ip_lastName"
+                placeholder="Last Name"
+                type="text"
+                name=""
+                id=""
+                ng-model="user.lastName"
+              />
+              <input
+                class="ip_userName"
+                placeholder="User Name"
+                type="text"
+                name=""
+                id=""
+                ng-model="user.userName"
+              />
+              <input
+                class="ip_Password"
+                placeholder="Password"
+                type="text"
+                name=""
+                id=""
+                ng-model="user.Password"
+              />
+              <input
+                class="ip_birthDay"
+                placeholder="Birth Day"
+                type="date"
+                name=""
+                id=""
+                ng-model="user.birthDay"
+              />
+              <div class="ip_sexual">
+                <div>
+                  <input
+                    type="radio"
+                    id="female"
+                    name="sexual"
+                    value="0"
+                    ng-model="user.sexual"
+                  />
+                  <label for="female">Female</label>
+                </div>
+
+                <div>
+                  <input
+                    type="radio"
+                    id="male"
+                    name="sexual"
+                    value="1"
+                    ng-model="user.sexual"
+                  />
+                  <label for="male">Male</label>
+                </div>
+              </div>
+              <button type="submit">Register</button>
+            </form>
+          </div>
+          <div class="platform">
+            <span>Get the app</span>
+            <div class="plat-option">
+              <a href="">
+                <img
+                  height="42"
+                  src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png"
+                  alt=""
+                />
+              </a>
+              <a href="">
+                <img
+                  height="42"
+                  src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png"
+                  alt=""
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="uper-footer">
+          <a href=""> Meta </a>
+          <a href=""> About </a>
+          <a href=""> Blog </a>
+          <a href=""> Jobs </a>
+          <a href=""> Help </a>
+          <a href=""> API </a>
+          <a href=""> Privacy </a>
+          <a href=""> Terms </a>
+          <a href=""> Location </a>
+          <a href=""> Instagram Lite </a>
+          <a href=""> Thread </a>
+          <a href=""> Contact Uploading & Non-User </a>
+          <a href=""> Meta Veryfied </a>
+          <a href=""> Instagram Lite </a>
+        </div>
+        <div>© 2023 Instagram from Meta</div>
+      </div>
+    </div>
+    <script type="module" src="./../../angular/register.js"></script>
+  </body>
+</html>

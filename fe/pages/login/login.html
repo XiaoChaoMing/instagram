@@ -8,12 +8,15 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <!-- angular js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
     <!-- css -->
     <link rel="stylesheet" href="./../../base.css" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="logincss.css" />
     <title>Document</title>
   </head>
-  <body>
+  <body ng-app="instarApp" ng-controller="LoginCtrl">
     <div class="login-wraper container split">
       <div class="maint-login">
         <div class="slider-login">
@@ -24,23 +27,25 @@
             <div class="logo-insta">
               <i></i>
             </div>
-            <div class="form-wraper">
+            <form ng-submit="login(user)" class="form-wraper">
               <input
                 class="PhoneNum"
                 placeholder="Phone number, User name or Email"
                 type="text"
                 name=""
                 id=""
+                ng-model="user.userName"
               />
               <input
                 class="Password"
                 placeholder="Password"
-                type="text"
+                type="password"
                 name=""
                 id=""
+                ng-model="user.Password"
               />
-              <button>Log in</button>
-            </div>
+              <button type="submit">Log in</button>
+            </form>
             <div class="option">
               <div></div>
               <div>OR</div>
@@ -59,7 +64,7 @@
           <div class="register-link">
             <p>
               Don't have an account?
-              <a href="">
+              <a href="./../register/register.html">
                 <span> Sign up </span>
               </a>
             </p>
@@ -105,5 +110,6 @@
         <div>© 2023 Instagram from Meta</div>
       </div>
     </div>
+    <script type="module" src="./../../angular/login.js"></script>
   </body>
 </html>

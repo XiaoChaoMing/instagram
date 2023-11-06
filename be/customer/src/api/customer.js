@@ -3,8 +3,8 @@ const CustomerService = require("./../services/customer-service");
 const express = require("express");
 const router = express.Router();
 const UserAuth = require("./middleware/auth");
-module.exports = (app) => {
-  const services = new CustomerService();
+module.exports = (app, io) => {
+  this.customerService = new CustomerService();
   app.use("/register", router);
 
   app.post("/register", async (req, res) => {
@@ -15,18 +15,16 @@ module.exports = (app) => {
       lastName,
       Avatar,
       birthDay,
-      phoneNum,
-      Email,
+      sexual,
     } = req.body;
-    const unq = await services.Register({
+    const unq = await this.customerService.Register({
       userName,
       Password,
       firstName,
       lastName,
       Avatar,
       birthDay,
-      phoneNum,
-      Email,
+      sexual,
     });
     if (unq) {
       res.json({
@@ -39,20 +37,76 @@ module.exports = (app) => {
         msg: "tao that bai",
       });
     }
-    // lam dang nhap truoc
-    // res.redirect("/register/updateProfile");
   });
   app.post("/login", async (req, res, next) => {
     const { userName, Password } = req.body;
-    await services.SignIn({ userName, Password });
-    res.json({ status: 200 });
+    const existAccount = await this.customerService.SignIn({
+      userName,
+      Password,
+    });
+    if (existAccount) {
+      return res.json({
+        status: 200,
+        msg: "dang nhap thanh cong",
+        data: existAccount,
+      });
+    }
+    return res.json({ status: 202, msg: "dang nhap that bai" });
   });
-  // router.get("/updateProfile", async (req, res) => {
-  //   res.json({ status: 201 });
-  // });
-  app.get("/profile", async (req, res, next) => {
-    res.json({ status: 200 });
+  app.post("/updateProfile", async (req, res, next) => {
+    const {
+      userId,
+      firstName,
+      lastName,
+      Avatar,
+      birthDay,
+      sexual,
+      Country,
+      phoneNum,
+      Email,
+      nickName,
+      Description,
+    } = req.body;
+    await this.customerService.updateUserProfile({
+      userId,
+      firstName,
+      lastName,
+      Avatar,
+      birthDay,
+      sexual,
+      Country,
+      phoneNum,
+      Email,
+      nickName,
+      Description,
+    });
+    res.json({
+      status: 200,
+    });
   });
-  app.post("/follow", async (req, res, next) => {});
-  app.delete("/delUser", async (req, res, next) => {});
+  app.get("/profile/:id", async (req, res, next) => {
+    const data = await this.customerService.getProfileUser(req.params.id);
+    res.json({ status: 200, data: data });
+  });
+  app.post("/follow", async (req, res, next) => {
+    const { followerId, followingId } = req.body;
+    const existFollow = await this.customerService.Following({
+      followerId,
+      followingId,
+    });
+    if (existFollow) {
+      io.emit("followEvent", { data: { followerId, followingId } });
+      return res.json({ msg: "follow thanh cong" });
+    }
+    return res.json({ msg: "error" });
+  });
+  app.post("/unfollow", async (req, res, next) => {
+    const { followerId, followingId } = req.body;
+    await this.customerService.unFollowing({ followerId, followingId });
+    res.json({ status: 200, msg: "unfollow" });
+  });
+  app.get("/follower/:id", async (req, res, next) => {
+    const data = await services.Follower(req.params.id);
+    res.json({ data: data });
+  });
 };

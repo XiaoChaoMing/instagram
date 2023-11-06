@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { APP_SECRET } = require("./../config/config");
+const { ACCESS_TOKKEN_KEY, REFRESH_TOKKEN_KEY } = require("./../config/config");
 module.exports.GenerateSalt = async () => {
   return await bcrypt.genSalt();
 };
@@ -15,20 +15,48 @@ module.exports.ValidatePassword = async (
 ) => {
   return (await this.HashPassword(enteredPassword, salt)) === savedPassword;
 };
-module.exports.GenerateSignature = async (payload) => {
+module.exports.GenerateAccessTokken = async (payload) => {
   try {
-    return await jwt.sign(payload, APP_SECRET, { expiresIn: "15d" });
+    return await jwt.sign(payload, ACCESS_TOKKEN_KEY, { expiresIn: "1m" });
   } catch (error) {
     console.log(error);
     return error;
   }
 };
-module.exports.ValidateSignature = async (req) => {
+module.exports.GenerateRefreshTokken = async (payload) => {
+  try {
+    return await jwt.sign(payload, REFRESH_TOKKEN_KEY, { expiresIn: "30d" });
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+module.exports.ValidateAccessToken = async (req) => {
   try {
     const signature = req.get("Authorization");
     console.log(signature);
-    const payload = await jwt.verify(signature.split(" ")[1], APP_SECRET);
+    const payload = await jwt.verify(
+      signature.split(" ")[1],
+      ACCESS_TOKKEN_KEY
+    );
     req.user = payload;
+    console.log(payload);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+module.exports.ValidateRefreshToken = async (req) => {
+  try {
+    const signature = req.get("Authorization");
+    console.log(signature);
+    const payload = await jwt.verify(
+      signature.split(" ")[1],
+      REFRESH_TOKKEN_KEY
+    );
+    req.user = payload;
+    console.log(payload);
     return true;
   } catch (error) {
     console.log(error);

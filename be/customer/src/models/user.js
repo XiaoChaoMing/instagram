@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("./../bd-connection");
-const Account = require("./Account");
+const UserProfile = require("./../models/UserProfile");
 const User = sequelize.define(
   "Users",
   {
@@ -10,27 +10,24 @@ const User = sequelize.define(
     lastName: {
       type: DataTypes.STRING,
     },
-    nickName: {
-      type: DataTypes.STRING,
-    },
     Avatar: {
       type: DataTypes.STRING,
     },
     birthDay: {
       type: DataTypes.DATEONLY,
     },
-    phoneNum: {
-      type: DataTypes.STRING,
-    },
-    Email: {
-      type: DataTypes.STRING,
-    },
-
-    notifyId: {
-      type: DataTypes.INTEGER,
-    },
+    Sexual: { type: DataTypes.BOOLEAN },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    hooks: {
+      afterCreate: async (User, options) => {
+        await UserProfile.create({
+          userId: User.id,
+        });
+      },
+    },
+  }
 );
 
 module.exports = User;

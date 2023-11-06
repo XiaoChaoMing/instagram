@@ -13,6 +13,10 @@ const Account = sequelize.define(
     Salt: {
       type: DataTypes.STRING,
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+    },
+    RefreshTokken: { type: DataTypes.STRING },
   },
   { timestamps: true }
 );
