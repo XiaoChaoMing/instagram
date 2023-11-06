@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
-  socket.on("sendFile", (data) => {
+  socket.on("sendFile", (data, callback) => {
     const imageBuffer = Buffer.from(data.file.split(";base64,")[1], "base64");
     const mountainsRef = ref(storage, "img/" + data.name);
     const uploadTask = uploadBytes(mountainsRef, imageBuffer);
@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
     // );
 
     console.log("File received and saved");
+    callback({ status: "success" });
   });
 });
 

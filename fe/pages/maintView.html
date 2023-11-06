@@ -13,11 +13,11 @@
         <div class="post-slideshow">
           <div class="btn-indexPost"></div>
           <ul class="slider-wrap">
-            <div class="img-wraper">
+            <div ng-repeat="mediafile in post.Media" class="img-wraper">
               <img
                 height="100%"
                 width="100%"
-                src="https://firebasestorage.googleapis.com/v0/b/instagram-clone-5b21f.appspot.com/o/img%2FSnapinsta.app_383093963_1490822011730687_7976250435307148946_n_1080.jpg?alt=media&token=dff07312-b8c3-443a-b73e-9f23b430382b"
+                ng-src="{{mediafile.mediaFile}}"
                 alt=""
               />
             </div>

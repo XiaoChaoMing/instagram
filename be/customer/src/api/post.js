@@ -12,22 +12,24 @@ module.exports = (app, io, storage) => {
 
   app.post("/createPost", async (req, res, next) => {
     const { UserId, status, Types, mediaFiles } = req.body;
-    const mediaFST = await Promise.all(
-      mediaFiles.map(async (file) => {
-        const imageRef = ref(storage, `img/${file}`);
-        try {
-          const url = await getDownloadURL(imageRef);
-          return url;
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    );
-    await this.postService.CreatePost({ UserId, status, Types, mediaFST });
-    res.json({
-      status: 200,
-      msg: "create success",
-    });
+    setTimeout(async () => {
+      const mediaFST = await Promise.all(
+        mediaFiles.map(async (file) => {
+          const imageRef = ref(storage, `img/${file}`);
+          try {
+            const url = await getDownloadURL(imageRef);
+            return url;
+          } catch (error) {
+            console.log(error);
+          }
+        })
+      );
+      await this.postService.CreatePost({ UserId, status, Types, mediaFST });
+      res.json({
+        status: 200,
+        msg: "create success",
+      });
+    }, 3000);
   });
 
   app.post("/reactPost", UserAuth, async (req, res, next) => {
