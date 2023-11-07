@@ -24,7 +24,9 @@ module.exports = (app, io, storage) => {
           }
         })
       );
+
       await this.postService.CreatePost({ UserId, status, Types, mediaFST });
+      io.emit("newPost", () => {});
       res.json({
         status: 200,
         msg: "create success",
@@ -32,9 +34,17 @@ module.exports = (app, io, storage) => {
     }, 3000);
   });
 
-  app.post("/reactPost", UserAuth, async (req, res, next) => {
-    const { PostId, UserId, comment } = req.body;
-    await service.ReactPost({ PostId, UserId, comment });
+  app.post("/reactPost", async (req, res, next) => {
+    const { PostId, UserId } = req.body;
+    await this.postService.ReactPost({ PostId, UserId });
+    res.json({
+      status: 200,
+      msg: "create success",
+    });
+  });
+  app.post("/commentPost", async (req, res, next) => {
+    const { userId, postId, commentText } = req.body;
+    await this.postService.Comment({ userId, postId, commentText });
     res.json({
       status: 200,
       msg: "create success",

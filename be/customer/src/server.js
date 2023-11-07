@@ -49,12 +49,6 @@ io.on("connection", (socket) => {
     uploadTask.catch((error) => {
       console.error("Error uploading file:", error);
     });
-
-    // fs.writeFileSync(
-    //   `C:/Users/Acer/Desktop/imgRecive/${data.name}`,
-    //   imageBuffer
-    // );
-
     console.log("File received and saved");
     callback({ status: "success" });
   });

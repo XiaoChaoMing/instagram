@@ -38,6 +38,7 @@ class PostRepository {
   }
   async getPostAll() {
     const data = await sequelize.query(`EXEC GetAllPostByTime`);
+    console.log(data);
     return FormateData(data);
   }
   async getPostbyUser(id) {

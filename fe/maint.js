@@ -2,7 +2,7 @@ import strData from "./db_json/story.json" assert { type: "json" };
 import postData from "./db_json/post.json" assert { type: "json" };
 import postEmoji from "./db_json/emoji.json" assert { type: "json" };
 const App = {
-  isLogin: false,
+  // dung angular js
   renderUI: function () {
     let postImgList;
     let indexList;
@@ -421,6 +421,7 @@ const App = {
       $(el.currentTarget).is(".btn-nextStr") ? scroll(width) : scroll(-width);
     });
   },
+  // khong can su dung
   handleScrollPost: function () {
     var imgIndex = 0;
     let touchStartX = null;
