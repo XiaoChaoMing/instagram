@@ -24,14 +24,20 @@ module.exports = (app, io, storage) => {
           }
         })
       );
+      const newPost = await this.postService.CreatePost({
+        UserId,
+        status,
+        Types,
+        mediaFST,
+      });
+      console.log(newPost.data[0][0]);
+      io.emit("newPost", { data: newPost });
 
-      await this.postService.CreatePost({ UserId, status, Types, mediaFST });
-      io.emit("newPost", () => {});
       res.json({
         status: 200,
         msg: "create success",
       });
-    }, 3000);
+    }, 1000);
   });
 
   app.post("/reactPost", async (req, res, next) => {

@@ -25,13 +25,16 @@
           ></div>
           <div class="btn-indexPost">
             <span
-              ng-repeat="mediafile in post.Media"
+              ng-repeat="mediafile in post.Media track by $index"
               ng-class="{'activeImg': $index === 0}"
             ></span>
           </div>
 
           <ul class="slider-wrap">
-            <li ng-repeat="mediafile in post.Media" class="post-content">
+            <li
+              ng-repeat="mediafile in post.Media track by $index"
+              class="post-content"
+            >
               <div ng-switch="getMediaType(mediafile.mediaFile)">
                 <img
                   ng-switch-when="image"

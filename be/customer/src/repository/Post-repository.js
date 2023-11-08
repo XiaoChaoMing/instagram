@@ -38,7 +38,6 @@ class PostRepository {
   }
   async getPostAll() {
     const data = await sequelize.query(`EXEC GetAllPostByTime`);
-    console.log(data);
     return FormateData(data);
   }
   async getPostbyUser(id) {
@@ -83,6 +82,10 @@ class PostRepository {
       const post = entries[0];
       return post.id;
     }
+  }
+  async getLastedPost() {
+    const data = await sequelize.query(`EXEC GetLatestPost`);
+    return FormateData(data);
   }
 }
 

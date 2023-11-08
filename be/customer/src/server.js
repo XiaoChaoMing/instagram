@@ -53,12 +53,10 @@ io.on("connection", (socket) => {
     callback({ status: "success" });
   });
 });
-
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
   console.log(storage);
 });
-
 httpServer.listen(3000, () => {
   console.log("listening on port 3000");
 });

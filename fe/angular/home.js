@@ -21,7 +21,6 @@ app.controller("HomeCtrl", function ($scope, $http) {
             post.Comment = JSON.parse(post.Comment);
             post.Reactions = JSON.parse(post.Reactions);
             post.TimeFromNow = moment(post.createdAt).fromNow();
-
             return post;
           });
 
@@ -32,6 +31,13 @@ app.controller("HomeCtrl", function ($scope, $http) {
         console.log(error);
       }
     );
+  };
+  $scope.loadNewPost = function () {
+    window.Mysocket.on("newPost", (data) => {
+      $scope.$apply(function () {
+        $scope.loadPost();
+      });
+    });
   };
   $scope.getMediaType = function (mediaFile) {
     var extension = mediaFile.split("?")[0].split(".").pop();
@@ -126,7 +132,6 @@ app.controller("HomeCtrl", function ($scope, $http) {
       })
       .then((response) => {
         if (response.data.status === 200) {
-          console.log(response.data);
           alert("Đăng baif thành công");
         } else {
           alert("Đăng baif thaast bai");
@@ -140,6 +145,7 @@ app.controller("HomeCtrl", function ($scope, $http) {
     localStorage.removeItem("loggedInUser");
     window.location.href = "./pages/login/login.html";
   };
+  $scope.loadNewPost();
   $scope.loadUser();
   $scope.loadPost();
 });

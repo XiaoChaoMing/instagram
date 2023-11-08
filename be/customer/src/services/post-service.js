@@ -17,6 +17,8 @@ class PostService {
     mediaFST.forEach(async (file) => {
       await this.PostMediaRepo.CreatePostMedia({ postid, file });
     });
+    console.log(await this.PostRepo.getLastedPost());
+    return await this.PostRepo.getLastedPost();
   }
   async getAllPost() {
     return await this.PostRepo.getPostAll();
@@ -42,6 +44,9 @@ class PostService {
   async updateComment(commentinput) {
     const { userId, postId, commentText } = commentinput;
     await this.CommentRepo.updateComment({ userId, postId, commentText });
+  }
+  async getLatedPost() {
+    return await this.PostRepo.getLastedPost();
   }
   async showFullPost(id) {}
 }
