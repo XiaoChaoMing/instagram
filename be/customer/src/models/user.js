@@ -20,6 +20,7 @@ const User = sequelize.define(
   },
   {
     timestamps: true,
+    hasTrigger: true,
     hooks: {
       afterCreate: async (User, options) => {
         await UserProfile.create({

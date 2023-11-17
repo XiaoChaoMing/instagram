@@ -100,7 +100,7 @@ class CustomerService {
       userId,
       firstName,
       lastName,
-      Avatar,
+      Avatarurl,
       birthDay,
       sexual,
       Country,
@@ -112,7 +112,7 @@ class CustomerService {
     await this.customerRepo.updateUser({
       firstName,
       lastName,
-      Avatar,
+      Avatarurl,
       birthDay,
       sexual,
       userId,
@@ -131,8 +131,10 @@ class CustomerService {
     return FormateData(user);
   }
   async Follower(id) {
-    return await this.FollowRepo.Follower(id);
+    return await this.FollowRepo.getFollower(id);
   }
-  async getTopFollowers() {}
+  async getTopFollowers(id) {
+    return await this.FollowRepo.getHighestFollowing(id);
+  }
 }
 module.exports = CustomerService;

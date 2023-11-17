@@ -17,7 +17,7 @@ module.exports.ValidatePassword = async (
 };
 module.exports.GenerateAccessTokken = async (payload) => {
   try {
-    return await jwt.sign(payload, ACCESS_TOKKEN_KEY, { expiresIn: "1m" });
+    return jwt.sign(payload, ACCESS_TOKKEN_KEY, { expiresIn: "30d" });
   } catch (error) {
     console.log(error);
     return error;
@@ -25,7 +25,7 @@ module.exports.GenerateAccessTokken = async (payload) => {
 };
 module.exports.GenerateRefreshTokken = async (payload) => {
   try {
-    return await jwt.sign(payload, REFRESH_TOKKEN_KEY, { expiresIn: "30d" });
+    return jwt.sign(payload, REFRESH_TOKKEN_KEY, { expiresIn: "30d" });
   } catch (error) {
     console.log(error);
     return error;
@@ -34,13 +34,13 @@ module.exports.GenerateRefreshTokken = async (payload) => {
 module.exports.ValidateAccessToken = async (req) => {
   try {
     const signature = req.get("Authorization");
-    console.log(signature);
+    // console.log(signature);
     const payload = await jwt.verify(
       signature.split(" ")[1],
       ACCESS_TOKKEN_KEY
     );
     req.user = payload;
-    console.log(payload);
+    // console.log(payload);
     return true;
   } catch (error) {
     console.log(error);

@@ -22,12 +22,13 @@ class CustomerRepository {
     });
   }
   async updateUser(userInput) {
-    const { firstName, lastName, Avatar, birthDay, sexual, userId } = userInput;
+    const { firstName, lastName, Avatarurl, birthDay, sexual, userId } =
+      userInput;
     await User.update(
       {
         firstName: firstName,
         lastName: lastName,
-        Avatar: Avatar,
+        Avatar: Avatarurl,
         birthDay: birthDay,
         Sexual: sexual,
       },

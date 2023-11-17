@@ -16,7 +16,17 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/message", {
       templateUrl: "./pages/message.html",
       requireAuth: true,
-      controller: "HomeCtrl",
+      controller: "MessageCtrl",
+    })
+    .when("/profile", {
+      templateUrl: "./pages/Profile.html",
+      requireAuth: true,
+      controller: "ProfileCtrl",
+    })
+    .when("/editProfile", {
+      templateUrl: "./pages/editProfile.html",
+      requireAuth: true,
+      controller: "ProfileCtrl",
     })
     .otherwise({
       redirectTo: "/login",

@@ -1,4 +1,5 @@
 const { request } = require("express");
+
 const {
   getStorage,
   ref,
@@ -6,11 +7,12 @@ const {
   getDownloadURL,
 } = require("firebase/storage");
 const PostService = require("./../services/post-service");
+const NotifyService = require("./../services/notify-service");
 const UserAuth = require("./middleware/auth.js");
-module.exports = (app, io, storage) => {
+module.exports = (app, io, storage, users) => {
   this.postService = new PostService();
-
-  app.post("/createPost", async (req, res, next) => {
+  this.NotifyService = new NotifyService();
+  app.post("/createPost", UserAuth, async (req, res, next) => {
     const { UserId, status, Types, mediaFiles } = req.body;
     setTimeout(async () => {
       const mediaFST = await Promise.all(
@@ -30,7 +32,18 @@ module.exports = (app, io, storage) => {
         Types,
         mediaFST,
       });
-      console.log(newPost.data[0][0]);
+      const userFollowing = await this.postService.Follower(UserId);
+
+      userFollowing.data.result.forEach(async (follower) => {
+        const getNotify = await this.NotifyService.getNotifications(
+          follower.followingId
+        );
+        if (users[follower.followingId]) {
+          io.to(users[follower.followingId]).emit("newNotify", {
+            data: getNotify,
+          });
+        }
+      });
       io.emit("newPost", { data: newPost });
 
       res.json({
@@ -39,24 +52,44 @@ module.exports = (app, io, storage) => {
       });
     }, 1000);
   });
-
-  app.post("/reactPost", async (req, res, next) => {
-    const { PostId, UserId } = req.body;
-    await this.postService.ReactPost({ PostId, UserId });
-    res.json({
-      status: 200,
-      msg: "create success",
-    });
+  app.post("/reactPost", UserAuth, async (req, res, next) => {
+    const { PostId, UserId, toUserId } = req.body;
+    const exitsReact = await this.postService.ReactPost({ PostId, UserId });
+    if (exitsReact === 1) {
+      if (UserId !== toUserId) {
+        const notify = await this.NotifyService.getNotifications(toUserId);
+        io.to(users[toUserId]).emit("newNotify", {
+          data: notify,
+        });
+        io.emit("newReact", { data: notify });
+      }
+      res.json({
+        status: 200,
+        msg: "create success",
+      });
+    } else {
+      res.json({
+        status: 201,
+        msg: "delete success",
+      });
+    }
   });
-  app.post("/commentPost", async (req, res, next) => {
-    const { userId, postId, commentText } = req.body;
+  app.post("/commentPost", UserAuth, async (req, res, next) => {
+    const { userId, postId, commentText, toUserId } = req.body;
     await this.postService.Comment({ userId, postId, commentText });
+    const notify = await this.NotifyService.getNotifications(toUserId);
+    const cmt = await this.postService.GetCommentByPostId(postId);
+    io.to(users[toUserId]).emit("newNotify", {
+      data: notify,
+    });
+    io.emit("newComment", { data: cmt });
     res.json({
       status: 200,
       msg: "create success",
+      data: notify,
     });
   });
-  app.get("/getPost", async (req, res, next) => {
+  app.get("/getPost", UserAuth, async (req, res, next) => {
     const data = await this.postService.getAllPost();
     res.json({ status: 200, msg: "get post success", data: data });
   });

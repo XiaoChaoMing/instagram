@@ -86,6 +86,10 @@ const associate = () => {
     foreignKey: "userId",
     targetKey: "id",
   });
+  Notify.belongsTo(User, {
+    foreignKey: "fromUserId",
+    targetKey: "id",
+  });
   sequelize
     .sync()
     .then(() => {

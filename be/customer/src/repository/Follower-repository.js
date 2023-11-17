@@ -1,11 +1,7 @@
 const Follower = require("./../models/Follower");
-const {
-  HashPassword,
-  GenerateSalt,
-  ValidatePassword,
-  GenerateSignature,
-  FormateData,
-} = require("./../utils/index");
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../bd-connection");
+const { FormateData } = require("./../utils/index");
 class FollowerRepository {
   async folowing(userinput) {
     const { followerId, followingId } = userinput;
@@ -30,16 +26,16 @@ class FollowerRepository {
       },
     });
   }
-  async getFollower(id) {
+  async getFollower(UserId) {
     const result = await Follower.count({
       where: {
-        folowerId: id,
+        folowerId: UserId,
       },
       group: ["folowerId", "followingId"],
     });
-    return result;
+    return FormateData({ result });
   }
-  async getFollowing() {
+  async getFollowing(id) {
     const result = await Follower.count({
       where: {
         followingId: id,
@@ -47,6 +43,16 @@ class FollowerRepository {
       group: ["folowerId", "followingId"],
     });
     return result;
+  }
+  async getFriendList(id) {
+    const friendLists = await sequelize.query(
+      `GetUserFriendLists @UserId = ${id}`
+    );
+    return FormateData({ friendLists });
+  }
+  async getHighestFollowing(id) {
+    const fl = await sequelize.query(`GetMostFollowersest @userId = ${id}`);
+    return FormateData({ fl });
   }
   async checkExistFollow(userinput) {
     const { followerId, followingId } = userinput;

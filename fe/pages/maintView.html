@@ -2,15 +2,58 @@
   <div class="posts-wraper">
     <div class="posts-container">
       <div ng-repeat="post in posts" class="maint-post">
-        <div class="post-info">
+        <div
+          class="post-info"
+          ng-mouseenter="showProfile(post)"
+          ng-mouseleave="hideProfile()"
+        >
           <div class="post-avt">
-            <img height="32" width="32" src="" alt="" />
+            <img
+              ng-if="post.Avatar === null"
+              src="./../src/images/avatar/360_F_408244382_Ex6k7k8XYzTbiXLNJgIL8gssebpLLBZQ.jpg"
+              alt=""
+            />
+            <img ng-if="post.Avatar != null" ng-src="{{post.Avatar}}" alt="" />
           </div>
           <div class="post-username">
             {{post.firstName +"_"+ post.lastName}}
           </div>
           <span>•</span>
           <div class="post-time">{{post.TimeFromNow}}</div>
+          <div class="postUserProfile">
+            <div class="profileWraper">
+              <div class="imgWrapper">
+                <img ng-src="{{postUserPrf.Avatar}}" alt="" />
+              </div>
+              <div class="Userinfo">
+                <div class="userName">
+                  {{postUserPrf.firstName+"_"+postUserPrf.lastName}}
+                </div>
+                <div class="nickName">{{postUserPrf.nickName}}</div>
+              </div>
+            </div>
+            <div class="anotherInfo">
+              <div class="Posts">
+                {{postUserPrf.JsonPosts.length}} <br />Posts
+              </div>
+              <div class="Follower">
+                {{postUserPrf.Follower.length}} <br />Follower
+              </div>
+              <div class="Following">
+                {{postUserPrf.Following.length}} <br />Following
+              </div>
+            </div>
+            <div class="prv-postWrapper">
+              <div class="postList-wraper">
+                <div
+                  class="MpostItem"
+                  ng-repeat="postitem in postUserPrf.JsonPosts"
+                >
+                  <img ng-src="{{postitem.PostMedia[0].mediaFile}}" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="post-slideshow">
           <div
@@ -79,7 +122,7 @@
         <div class="interact-wraper">
           <div class="interact-items">
             <div class="interact-icons">
-              <div class="like">
+              <div class="like" ng-click="likePost(post.id,post.userId)">
                 <svg
                   aria-label="Like"
                   class="x1lliihq x1n2onr6"
@@ -155,7 +198,7 @@
             <p>{{post.Status}}</p>
           </div>
           <div class="comments-wraper">
-            <div class="show-comments">
+            <div class="show-comments" ng-click="handleShowComment(post)">
               View all
               <span class="total-comments">{{post.Comment.length}}</span>
               comment
@@ -178,7 +221,7 @@
 <div class="suggest-bar">
   <div class="User-account">
     <div class="Avt-wraper">
-      <img height="44" width="44" ng-src="{{getAvatar()}}" alt="" />
+      <img ng-src="{{getAvatar()}}" alt="" />
     </div>
     <div class="info-User">
       <div class="i4-nickName">{{user.nickName||user.fullName}}</div>
@@ -192,21 +235,27 @@
       <div class="suggest">See All</div>
     </div>
     <div class="most-userAccount">
-      <div class="Suggest-account">
+      <div ng-repeat="account in recommentUser" class="Suggest-account">
         <div class="Avt-wraper">
           <img
-            height="44"
-            width="44"
-            src="/src/images/avatar/278822746_1648530392213148_8157179013739528613_n.jpg"
+            ng-if="account.Avatar === null"
+            src="./../src/images/avatar/360_F_408244382_Ex6k7k8XYzTbiXLNJgIL8gssebpLLBZQ.jpg"
+            alt=""
+          />
+          <img
+            ng-if="account.Avatar !== null"
+            ng-src="{{account.Avatar}}"
             alt=""
           />
         </div>
 
         <div class="info-Suggest">
-          <div class="i4-nickName">kmyxinggai</div>
+          <div class="i4-nickName">
+            {{account.firstName+"_"+account.lastName}}
+          </div>
           <div class="suggest-text">Suggested for you</div>
         </div>
-        <div class="btn-follow">Follow</div>
+        <div class="btn-follow" ng-click="followUser(account.id)">Follow</div>
       </div>
     </div>
   </div>

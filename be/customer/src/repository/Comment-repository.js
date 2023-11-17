@@ -1,11 +1,7 @@
 const Comment = require("./../models/Comment");
-const {
-  HashPassword,
-  GenerateSalt,
-  ValidatePassword,
-  GenerateSignature,
-  FormateData,
-} = require("./../utils/index");
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../bd-connection");
+const { FormateData } = require("./../utils/index");
 class CommentRepository {
   async createComment(commentInput) {
     const { userId, postId, commentText } = commentInput;
@@ -34,12 +30,11 @@ class CommentRepository {
   async deleteComment(id) {
     await Comment.destroy({ where: { id: id } });
   }
-  async getAllCommentByPostId(id) {
-    await Comment.findAll({
-      where: {
-        postId: id,
-      },
-    });
+  async getCommentByPostId(id) {
+    const comment = await sequelize.query(
+      `EXEC GetCommmentByPostId @PostId = ${id}`
+    );
+    return FormateData({ comment });
   }
 }
 

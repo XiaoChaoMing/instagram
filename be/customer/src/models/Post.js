@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("./../bd-connection");
 const Notify = require("./Notify");
+const Follower = require("./Follower");
+
 const Post = sequelize.define(
   "Post",
   {
@@ -10,11 +12,20 @@ const Post = sequelize.define(
   },
   {
     timestamps: true,
+    hasTrigger: true,
     hooks: {
       afterCreate: async (post, options) => {
-        await Notify.create({
-          notifyTypeId: 1,
-          userId: post.userId,
+        const following = await Follower.findAll({
+          where: {
+            folowerId: post.userId,
+          },
+        });
+        following.forEach(async (follow) => {
+          await Notify.create({
+            notifyTypeId: 1,
+            fromUserId: follow.folowerId,
+            userId: follow.followingId,
+          });
         });
       },
     },

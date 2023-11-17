@@ -10,6 +10,6 @@ window.Mysocket = io({
 window.Mysocket.on("connect", () => {
   console.log("ket noi thanh cong");
 });
-window.Mysocket.on("followEvent", (data) => {
+window.Mysocket.on("customEvent", (data) => {
   console.log(data);
 });

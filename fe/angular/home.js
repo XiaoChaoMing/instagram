@@ -1,18 +1,26 @@
 var app = angular.module("instarApp");
-app.controller("HomeCtrl", function ($scope, $http) {
+app.controller("HomeCtrl", function ($scope, $http, $rootScope) {
   $scope.user;
+  $scope.commentText = "";
+  $rootScope.currentPost = {
+    id: 0,
+    Comment: [],
+  };
+  let config;
   $scope.loadUser = function () {
     var loggedInUser = localStorage.getItem("loggedInUser");
     if (loggedInUser) {
       $scope.user = JSON.parse(loggedInUser).data;
-      console.log(JSON.parse(loggedInUser).data);
+
+      config = {
+        headers: {
+          Authorization: `Bearer ${$scope.user.token}`,
+        },
+      };
     }
   };
-  // $scope.getPostMedia = function(){
-  //   return
-  // }
   $scope.loadPost = function () {
-    $http.get("/getPost").then(
+    $http.get("/getPost", config).then(
       function (response) {
         if (response.data.status === 200) {
           const data = response.data.data.data[0];
@@ -23,21 +31,45 @@ app.controller("HomeCtrl", function ($scope, $http) {
             post.TimeFromNow = moment(post.createdAt).fromNow();
             return post;
           });
-
-          console.log($scope.posts);
         }
       },
       function (error) {
         console.log(error);
       }
     );
-  };
-  $scope.loadNewPost = function () {
     window.Mysocket.on("newPost", (data) => {
       $scope.$apply(function () {
         $scope.loadPost();
       });
     });
+    window.Mysocket.on("newNotify", (data) => {
+      $scope.$apply(function () {
+        $scope.LoadNotify();
+        $scope.loadPost();
+      });
+    });
+    window.Mysocket.on("newComment", (data) => {
+      const comment = data.data.data.comment;
+      $rootScope.currentPost.Comment = comment[0];
+      $scope.loadPost();
+      $scope.scrollBottom();
+    });
+    window.Mysocket.on("newReact", (data) => {
+      $scope.loadPost();
+    });
+  };
+  $scope.loadRecommentUser = function () {
+    $http.get("/highestFollowings/" + $scope.user.id, config).then(
+      function (response) {
+        if (response.data.status === 200) {
+          const data = response.data.data.data.fl[0];
+          $scope.recommentUser = data;
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
   };
   $scope.getMediaType = function (mediaFile) {
     var extension = mediaFile.split("?")[0].split(".").pop();
@@ -100,14 +132,12 @@ app.controller("HomeCtrl", function ($scope, $http) {
     var filenames = filesArray.map(function (file) {
       return file.name;
     });
-
     const post = {
       UserId: $scope.user.id,
       status: $scope.Status,
       Types: 1,
       mediaFiles: filenames,
     };
-
     const promises = filesArray.map((file, index) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -128,11 +158,12 @@ app.controller("HomeCtrl", function ($scope, $http) {
 
     Promise.all(promises)
       .then(() => {
-        return $http.post("/createPost", post);
+        return $http.post("/createPost", post, config);
       })
       .then((response) => {
         if (response.data.status === 200) {
           alert("Đăng baif thành công");
+          $(".createCaption textarea").val("");
         } else {
           alert("Đăng baif thaast bai");
         }
@@ -141,11 +172,131 @@ app.controller("HomeCtrl", function ($scope, $http) {
         console.log(error);
       });
   };
+  $scope.LoadNotify = function () {
+    const UserId = $scope.user.id;
+
+    $http.get("/notify/" + UserId, config).then(
+      function (response) {
+        if (response.data.status === 200) {
+          const data = response.data.data;
+          $scope.notifys = data.data.notify[0];
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.deleteNotify = function (id) {
+    $http.post("/delNotify/" + id, config).then(
+      function (response) {
+        if (response.data.status === 200) {
+          alert("xoa thanh cong");
+          $scope.LoadNotify();
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.likePost = function (postId, toUserId) {
+    const like = {
+      PostId: postId,
+      UserId: $scope.user.id,
+      toUserId: toUserId,
+    };
+    $http.post("/reactPost", like, config).then(
+      function (response) {
+        if (response.data.status === 200) {
+          alert("ban da thich bai viet");
+          $scope.loadPost();
+        } else {
+          alert("ban da bo thich bai viet");
+          $scope.loadPost();
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.handleShowComment = function (post) {
+    $(".comment-overlay").show();
+    $rootScope.currentPost = post;
+  };
+  $scope.commentPost = function (postId, toUserId) {
+    const comment = {
+      postId: postId,
+      userId: $scope.user.id,
+      toUserId: toUserId,
+      commentText: $scope.commentText,
+    };
+    $http.post("/commentPost", comment, config).then(
+      function (response) {
+        if (response.data.status === 200) {
+          alert("ban da comment bai viet");
+          $scope.loadPost();
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.followUser = function (id) {
+    const followI4 = {
+      followerId: id,
+      followingId: $scope.user.id,
+    };
+    console.log(followI4);
+    $http.post("/follow", followI4, config).then(function (response) {
+      if (response.data.status === 200) {
+        alert("follow thanh cong");
+      }
+    });
+  };
   $scope.logout = function () {
     localStorage.removeItem("loggedInUser");
     window.location.href = "./pages/login/login.html";
   };
-  $scope.loadNewPost();
+  $scope.showProfile = function (post) {
+    $(".postUserProfile").css("display", "flex");
+    console.log(post.userId);
+    $http.get("/profile/" + post.userId).then(
+      function (response) {
+        if (response.data.status === 200) {
+          const data = response.data.data.data[0];
+          $scope.postUserPrf = data;
+          $scope.postUserPrf.id = post.userId;
+          $scope.postUserPrf.JsonPosts = JSON.parse(data.JsonPosts).slice(0, 3);
+          $scope.postUserPrf.Follower = JSON.parse(data.Follower);
+          $scope.postUserPrf.Following = JSON.parse(data.Following);
+          console.log($scope.postUserPrf.JsonPosts[0].PostMedia[0].mediaFile);
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.hideProfile = function () {
+    $(".postUserProfile").css("display", "none");
+  };
+  $scope.scrollBottom = function () {
+    const scrollT = $(".md_interact-comment");
+    console.log(scrollT.scrollTop);
+    $(".add-comment input").val("");
+    scrollT.animate(
+      {
+        scrollTop: 9999,
+      },
+      1000
+    );
+  };
   $scope.loadUser();
   $scope.loadPost();
+  $scope.LoadNotify();
+
+  $scope.loadRecommentUser();
 });

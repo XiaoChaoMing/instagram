@@ -9,6 +9,7 @@ app.controller("LoginCtrl", function ($scope, $http, $location) {
             "loggedInUser",
             JSON.stringify(response.data.data)
           );
+
           window.location.href = "/";
         } else {
           alert("Đăng nhập thất bại");
@@ -20,3 +21,26 @@ app.controller("LoginCtrl", function ($scope, $http, $location) {
     );
   };
 });
+app.factory("authInterceptor", [
+  "$q",
+  "$location",
+  function ($q, $location) {
+    return {
+      responseError: function (response) {
+        if (response.status === 401) {
+          alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+          localStorage.removeItem("loggedInUser");
+          $location.path("/login");
+        }
+        return $q.reject(response);
+      },
+    };
+  },
+]);
+
+app.config([
+  "$httpProvider",
+  function ($httpProvider) {
+    $httpProvider.interceptors.push("authInterceptor");
+  },
+]);

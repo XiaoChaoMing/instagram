@@ -1,0 +1,109 @@
+<div class="editProfile_container" ng-controller="ProfileCtrl" >
+  <div class="editPr_wrapper">
+    <div class="editPr_maint">
+      <p>Edit Profile</p>
+      <div class="input_wrapper" >
+        <form ng-submit="updateProfile(user)">
+          <div class="avt_input">
+           <div>
+              <div class="avtWrapper">
+                     <img  ng-src="{{user.Avatar}}" alt="" />
+                   </div>
+           </div>
+            
+              <label class="ipavtw" >
+                     <input class="input-avt" ng-model="Mediafile" type="file"  select-ng-files ng-model="user.Avatar"></button>
+                     Select from computer
+              </label>
+            
+          </div>
+          <div class="firstName_input">
+            <div class="firstNameWrapper">
+              <p>firstName</p>
+            </div>
+            
+              <input class="pr_input" type="text" ng-model="user.firstName">
+            
+            </div>
+            <div class="lastName_input">
+              <div class="lastNameWrapper">
+                <p>lastName</p>
+              </div>
+              
+                <input class="pr_input" type="text" ng-model="user.lastName">
+              
+              </div>
+          <div class="nickName_input">
+              <div class="nicknameWrapper">
+                <p>NickName</p>
+              </div>
+              
+                <input class="pr_input" type="text" ng-model="user.nickName">
+              
+              </div>
+              <div class="country_input">
+                     <div class="countryWrapper">
+                       <p>Country</p>
+                     </div>
+                     
+                       <input class="pr_input" type="text" ng-model="user.Country">
+                     
+              </div>
+              <div class="sexual_input">
+                     <div class="sexualWrapper">
+                            <p>Sexual</p>
+                          </div>
+                     <div>
+                       <input
+                         type="radio"
+                         id="female"
+                         name="sexual"
+                         value="0"
+                         ng-model="user.sexual"
+                       />
+                       <label for="female">Female</label>
+                     </div>
+     
+                     <div>
+                       <input
+                         type="radio"
+                         id="male"
+                         name="sexual"
+                         value="1"
+                         ng-model="user.sexual"
+                       />
+                       <label for="male">Male</label>
+                     </div>
+              </div>
+              <div class="email_input">
+              <div class="emailWrapper">
+                       <p>Email</p>
+              </div>
+                     
+                       <input class="pr_input" type="text" ng-model="user.Email">
+                     
+              </div>
+              <div class="phoneNum_input">
+                     <div class="phoneNumWrapper">
+                       <p>PhoneNum</p>
+                     </div>
+                     
+                       <input class="pr_input" type="text" ng-model="user.phoneNum">
+                     
+              </div>
+              <div class="description_input">
+                     <div class="descriptionWrapper">
+                       <p>Description</p>
+                     </div>
+                     
+                       <input class="pr_input" type="text" ng-model="user.Description">
+                     
+              </div>
+          <button class="pr_submit" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

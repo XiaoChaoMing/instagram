@@ -1,11 +1,8 @@
 const Message = require("./../models/Message");
-const {
-  HashPassword,
-  GenerateSalt,
-  ValidatePassword,
-  GenerateSignature,
-  FormateData,
-} = require("./../utils/index");
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../bd-connection");
+const { FormateData } = require("./../utils/index");
+
 class MessageRepository {
   async createMessage(message) {
     const { fromUserId, toUserId, messageText } = message;
@@ -16,12 +13,10 @@ class MessageRepository {
     });
   }
   async getMessage(fromUserId, toUserId) {
-    await Message.findAll({
-      where: {
-        fromUserId: fromUserId,
-        toUserId: toUserId,
-      },
-    });
+    const Message = await sequelize.query(
+      `EXEC GetPrivateChat @friendId = ${toUserId},@userId = ${fromUserId}`
+    );
+    return FormateData({ Message });
   }
   async delMessage(fromUserId, toUserId) {
     await Message.destroy({

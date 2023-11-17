@@ -1,10 +1,17 @@
 const CustomerService = require("./../services/customer-service");
-
+const NotifyService = require("./../services/notify-service");
 const express = require("express");
 const router = express.Router();
 const UserAuth = require("./middleware/auth");
-module.exports = (app, io) => {
+const {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} = require("firebase/storage");
+module.exports = (app, io, storage, users) => {
   this.customerService = new CustomerService();
+  this.NotifyService = new NotifyService();
   app.use("/register", router);
 
   app.post("/register", async (req, res) => {
@@ -54,6 +61,7 @@ module.exports = (app, io) => {
     return res.json({ status: 202, msg: "dang nhap that bai" });
   });
   app.post("/updateProfile", async (req, res, next) => {
+    let Avatarurl;
     const {
       userId,
       firstName,
@@ -67,22 +75,30 @@ module.exports = (app, io) => {
       nickName,
       Description,
     } = req.body;
-    await this.customerService.updateUserProfile({
-      userId,
-      firstName,
-      lastName,
-      Avatar,
-      birthDay,
-      sexual,
-      Country,
-      phoneNum,
-      Email,
-      nickName,
-      Description,
-    });
-    res.json({
-      status: 200,
-    });
+    setTimeout(async () => {
+      if (Avatar) {
+        const imageRef = await ref(storage, `img/${Avatar}`);
+        Avatarurl = await getDownloadURL(imageRef);
+      }
+
+      await this.customerService.updateUserProfile({
+        userId,
+        firstName,
+        lastName,
+        Avatarurl,
+        birthDay,
+        sexual,
+        Country,
+        phoneNum,
+        Email,
+        nickName,
+        Description,
+      });
+      res.json({
+        status: 200,
+        msg: "create success",
+      });
+    }, 1000);
   });
   app.get("/profile/:id", async (req, res, next) => {
     const data = await this.customerService.getProfileUser(req.params.id);
@@ -94,9 +110,10 @@ module.exports = (app, io) => {
       followerId,
       followingId,
     });
+    const notify = await this.NotifyService.getNotifications(followerId);
     if (existFollow) {
-      io.emit("followEvent", { data: { followerId, followingId } });
-      return res.json({ msg: "follow thanh cong" });
+      io.to(users[followerId]).emit("newNotify", { data: notify });
+      return res.json({ status: 200, msg: "follow thanh cong" });
     }
     return res.json({ msg: "error" });
   });
@@ -105,8 +122,12 @@ module.exports = (app, io) => {
     await this.customerService.unFollowing({ followerId, followingId });
     res.json({ status: 200, msg: "unfollow" });
   });
+  app.get("/highestFollowings/:id", async (req, res, next) => {
+    const data = await this.customerService.getTopFollowers(req.params.id);
+    res.json({ status: 200, data: data });
+  });
   app.get("/follower/:id", async (req, res, next) => {
-    const data = await services.Follower(req.params.id);
+    const data = await this.customerService.Follower(req.params.id);
     res.json({ data: data });
   });
 };

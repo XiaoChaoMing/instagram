@@ -1,18 +1,13 @@
 const Notify = require("./../models/Notify");
-const {
-  HashPassword,
-  GenerateSalt,
-  ValidatePassword,
-  GenerateSignature,
-  FormateData,
-} = require("./../utils/index");
-class FollowerRepository {
-  async createNotify(notify) {
-    const { notifyTypeId, userId } = notify;
-    await Notify.create({
-      notifyTypeId: notifyTypeId,
-      userId: userId,
-    });
+const { FormateData } = require("./../utils/index");
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../bd-connection");
+class NotifyRepository {
+  async getNotify(UserId) {
+    const Notifi = await await sequelize.query(
+      `EXEC GetNotifications @UserId = ${UserId}`
+    );
+    return Notifi;
   }
   async delNotify(id) {
     await Notify.destroy({
@@ -21,4 +16,4 @@ class FollowerRepository {
   }
 }
 
-module.exports = FollowerRepository;
+module.exports = NotifyRepository;

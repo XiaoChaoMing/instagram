@@ -4,13 +4,7 @@ const Reaction = require("./../models/Reaction");
 const Comment = require("./../models/Comment");
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../bd-connection");
-const {
-  HashPassword,
-  GenerateSalt,
-  ValidatePassword,
-  GenerateSignature,
-  FormateData,
-} = require("./../utils/index");
+const { FormateData } = require("./../utils/index");
 class PostRepository {
   async CreatePost(postinput) {
     const { UserId, status, Types } = postinput;
@@ -45,6 +39,12 @@ class PostRepository {
       where: { userId: id },
     });
     return post[0];
+  }
+  async getPostbyid(id) {
+    const post = await Post.findAll({
+      where: { id: id },
+    });
+    return FormateData({ post });
   }
   async reactPost(postinput) {
     const { PostId, UserId, comment } = postinput;
