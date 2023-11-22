@@ -16,19 +16,24 @@ module.exports = (app, io, users) => {
       messageText,
     });
     const notify = await this.NotifyService.getNotifications(toUserId);
-    const msg = await this.MessageService.getPrivateMessage(
+    const msgSend = await this.MessageService.getPrivateMessage(
       fromUserId,
       toUserId
     );
+    const msgRecive = await this.MessageService.getPrivateMessage(
+      toUserId,
+      fromUserId
+    );
+
     io.to(users[toUserId]).emit("newNotify", {
       data: notify,
     });
 
     io.to(users[fromUserId]).emit("newMsg", {
-      data: msg,
+      data: msgSend,
     });
     io.to(users[toUserId]).emit("newMsg", {
-      data: msg,
+      data: msgRecive,
     });
     res.json({ status: 200, msg: "sendMessage success" });
   });

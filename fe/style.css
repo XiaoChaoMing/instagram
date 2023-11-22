@@ -140,6 +140,28 @@ input {
 .Search-ov-input {
   padding: 20px 0;
   border-bottom: 1px solid #262626;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.searchResult {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.resultImgWrapper {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.resultWraper {
+  display: flex;
+  gap: 20px;
+  font-size: 17px;
+  font-weight: 300;
+  align-items: center;
 }
 .Search-ov-input > input {
   background-color: #262626;
@@ -160,8 +182,28 @@ input {
   background-color: #000000d1;
   display: none;
 }
+.editPost_overlay {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: #000000d1;
+  display: none;
+}
 .create-modals_wraper {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  background-color: #262626;
+  border-radius: 20px;
+}
+.edit-modals_wraper {
+  position: absolute;
+  flex-direction: column;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -192,6 +234,25 @@ input {
   display: flex;
   max-width: 570px;
 }
+.edpContainer {
+  padding: 10px;
+  min-width: 500px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, calc((100% / 4) - 10px));
+  grid-template-rows: 100px;
+  max-width: 570px;
+  gap: 10px;
+}
+.addImgWraper {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .create-status {
   padding-left: 10px;
   width: 320px;
@@ -219,6 +280,18 @@ input {
   border-bottom: 1px solid #a8a8a881;
   font-size: 17px;
 }
+.editPostHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 15px 0 0 0;
+  border-bottom: 1px solid #a8a8a881;
+  font-size: 17px;
+}
+.editPostHeader > p {
+  flex-grow: 1;
+  text-align: center;
+}
 .crph:first-child {
   text-align: start;
   padding-left: 15px;
@@ -242,13 +315,31 @@ input {
   overflow-x: scroll;
   position: relative;
 }
+.edpWraper {
+  height: 100%;
+  width: 100%;
+  display: none;
+  overflow-x: scroll;
+  position: relative;
+}
 .crpBody {
+  height: 537px;
+  display: flex;
+}
+.edpBody {
   height: 537px;
   display: flex;
 }
 .imgWraper {
   min-width: 570px;
   min-height: 537px;
+}
+.imgWrapered {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
 }
 .imgWrapper {
   width: 100px;
@@ -304,11 +395,21 @@ input {
   margin-top: 15px;
 }
 .btn-close_OvPost,
-.btn-close_comment {
+.btn-close_comment,
+.btn-close_edPost {
   position: absolute;
   top: 20px;
   right: 4%;
   z-index: 999;
+}
+.deleteImg {
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px 10px 0 10px;
+  top: 0;
+}
+.deleteImg > p {
+  font-size: 15px;
 }
 .maint-content {
   flex-basis: 80%;
@@ -508,6 +609,37 @@ input {
   gap: 13px;
   font-size: 15px;
   position: relative;
+}
+.post-info_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 15px;
+}
+.menu-post {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+  position: relative;
+}
+.menuPost {
+  width: 100px;
+  background-color: #262626;
+  position: absolute;
+  z-index: 994;
+  border-radius: 10px;
+  top: 20px;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+}
+.togglePostMenu {
+  display: flex;
+}
+.menuPost > div:last-child {
+  padding-top: 10px;
+  border-top: 1px solid #a8a8a8;
 }
 .postUserProfile {
   display: none;
@@ -1201,4 +1333,7 @@ input {
 }
 .send-message > .mess-content {
   background-color: #3797f0;
+}
+.Search-ov_Wraper {
+  margin-top: 30px;
 }

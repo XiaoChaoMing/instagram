@@ -15,15 +15,24 @@ class PostRepository {
     });
   }
   async updatePost(postinput) {
-    const { PostId, UserId, status, Types, mediaFiles } = postinput;
+    const { id, userId, Status, postTypeId, Media } = postinput;
+    console.log({ id, userId, Status, postTypeId, Media });
     await Post.update(
-      { UserId: UserId, status: status, Types: Types },
-      { where: { id: PostId } }
+      { UserId: userId, Status: Status, Types: postTypeId },
+      { where: { id: id } }
     );
-    await PostMedia.update(
-      { mediaFiles: mediaFiles },
-      { where: { PostId: PostId } }
-    );
+    Media.forEach(async (mediaItem) => {
+      if (mediaItem.type === 1) {
+        await PostMedia.create({
+          mediaFile: mediaItem.mediaFile,
+          PostId: id,
+        });
+      } else if (mediaItem.type === 0) {
+        await PostMedia.destroy({
+          where: { mediaFile: mediaItem.mediaFile, PostId: id },
+        });
+      }
+    });
   }
   async delPost(id) {
     await Post.destroy({

@@ -43,10 +43,12 @@ class CustomerService {
           await this.AccountRepo.updateAccount({ userName, refreshToken });
         }
         console.log("accessToken:" + token);
+        console.log(existAccount);
         return FormateData({
           id: existAccount[0].id,
           userName: existAccount[0].userName,
           token,
+          isAdmin: existAccount[0].isAdmin,
           fullName: existAccount[0].firstName + " " + existAccount[0].lastName,
           Avatar: existAccount[0].Avatar,
           nickName: existAccount[0].nickName,
@@ -135,6 +137,9 @@ class CustomerService {
   }
   async getTopFollowers(id) {
     return await this.FollowRepo.getHighestFollowing(id);
+  }
+  async searchUser(info) {
+    return await this.customerRepo.searchUser(info);
   }
 }
 module.exports = CustomerService;

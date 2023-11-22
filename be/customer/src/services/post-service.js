@@ -22,6 +22,9 @@ class PostService {
     console.log(await this.PostRepo.getLastedPost());
     return await this.PostRepo.getLastedPost();
   }
+  async UpdatePost(postInfo) {
+    await this.PostRepo.updatePost(postInfo);
+  }
   async getAllPost() {
     return await this.PostRepo.getPostAll();
   }

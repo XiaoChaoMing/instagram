@@ -7,8 +7,22 @@
       <div class="infoWrapper">
         <div class="editWrapper">
           <div class="pr-nickName">{{user.firstName+"_"+user.lastName}}</div>
-          <div class="editProfile">
+          <div class="editProfile" ng-if="user.id === maintUser.data.id">
             <a href="#/editProfile"> Edit Profile </a>
+          </div>
+          <div
+            ng-if="isFollowing !== true && user.id !== maintUser.data.id"
+            class="FollowUser"
+            ng-click="folow(user.id)"
+          >
+            Follow
+          </div>
+          <div
+            ng-if="isFollowing === true && user.id !== maintUser.data.id"
+            class="FollowUser"
+            ng-click="unFolow(user.id)"
+          >
+            unFollow
           </div>
         </div>
         <div class="aetherInfor">
@@ -30,10 +44,14 @@
     <p><i class="ri-grid-line"></i>Posts</p>
     <div class="prv-postWrapper">
       <div class="postList-wraper">
-        <div class="postItem" ng-repeat="post in user.JsonPosts">
+        <div
+          class="postItem"
+          ng-click="handleShowFullPost(post)"
+          ng-repeat="post in user.JsonPosts"
+        >
           <div class="postItemOverlay">
             <div class="like">
-              {{post.PostMedia[0].ReactionCount}}
+              {{post.Users[0].Reactions.length}}
               <svg
                 aria-label="Like"
                 class="x1lliihq x1n2onr6"
@@ -51,7 +69,7 @@
               </svg>
             </div>
             <div class="comment">
-              {{post.PostMedia[0].CommentCount}}
+              {{post.Users[0].Comment.length}}
               <svg
                 aria-label="Comment"
                 class="x1lliihq x1n2onr6"
@@ -95,7 +113,7 @@
               </svg>
             </div>
           </div>
-          <img ng-src="{{post.PostMedia[0].mediaFile}}" alt="" />
+          <img ng-src="{{post.Users[0].Media[0].mediaFile}}" alt="" />
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ const users = {};
 initializeApp(config);
 const storage = getStorage();
 const corsOptions = {
-  origin: ["http://127.0.0.1:3000"],
+  origin: ["http://127.0.0.1:8001"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
@@ -29,9 +29,7 @@ require("./associate");
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
-app.get("/", (req, res) => {
-  res.sendFile(__dirname, "./../../../fe/index.html");
-});
+
 expressApp(app, io, storage, users);
 io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
@@ -57,9 +55,13 @@ io.on("connection", (socket) => {
     callback({ status: "success" });
   });
 });
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
-httpServer.listen(3000, () => {
-  console.log("listening on port 3000");
-});
+// app.listen(PORT, () => {
+//   console.log(`Listening on port ${PORT}`);
+// });
+// httpServer.listen(3000, () => {
+//   console.log("listening on port 3000");
+// });
+app.start = app.listen = function () {
+  return httpServer.listen.apply(httpServer, arguments);
+};
+app.start(PORT);

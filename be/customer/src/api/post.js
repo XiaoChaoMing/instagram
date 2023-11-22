@@ -74,6 +74,39 @@ module.exports = (app, io, storage, users) => {
       });
     }
   });
+  app.post("/updatePost", async (req, res, next) => {
+    const data = req.body;
+    const mediaFST = data.Media.map(async (mediaFile) => {
+      if (mediaFile.type === 1) {
+        const imageRef = ref(storage, `img/${mediaFile.name}`);
+        try {
+          const url = await getDownloadURL(imageRef);
+          mediaFile.mediaFile = url;
+          return mediaFile;
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        return mediaFile;
+      }
+    });
+    Promise.all(mediaFST)
+      .then(async (completed) => {
+        data.Media = completed;
+        await this.postService.UpdatePost(data);
+        io.emit("updatePost", { data: "newpost" });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    res.json({ status: 200 });
+  });
+  app.post("/deletePost/:id", async (req, res, next) => {
+    await this.postService.DeletePost(req.params.id);
+    io.emit("updatePost", { data: "newpost" });
+    res.json({ status: 200 });
+  });
   app.post("/commentPost", UserAuth, async (req, res, next) => {
     const { userId, postId, commentText, toUserId } = req.body;
     await this.postService.Comment({ userId, postId, commentText });

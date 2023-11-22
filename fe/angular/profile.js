@@ -1,5 +1,8 @@
 var app = angular.module("instarApp");
-app.controller("ProfileCtrl", function ($scope, $http) {
+
+app.controller("ProfileCtrl", function ($scope, $http, $rootScope) {
+  $rootScope.currentPost;
+  $scope.isFollowing;
   $scope.loadAvatar = function () {
     document
       .querySelector(".input-avt")
@@ -12,12 +15,12 @@ app.controller("ProfileCtrl", function ($scope, $http) {
       });
   };
   $scope.loadUserProfile = function () {
-    var loggedInUser = localStorage.getItem("loggedInUser");
+    var maintUser = localStorage.getItem("loggedInUser");
+    $scope.maintUser = JSON.parse(maintUser);
+    console.log($scope.maintUser.data.id);
     let userid;
-    if (loggedInUser) {
-      userid = JSON.parse(loggedInUser).data.id;
-    }
-
+    var currentUser = localStorage.getItem("currentPost");
+    userid = JSON.parse(currentUser);
     $http.get("/profile/" + userid).then(
       function (response) {
         if (response.data.status === 200) {
@@ -27,7 +30,48 @@ app.controller("ProfileCtrl", function ($scope, $http) {
           $scope.user.JsonPosts = JSON.parse(data.JsonPosts);
           $scope.user.Follower = JSON.parse(data.Follower);
           $scope.user.Following = JSON.parse(data.Following);
-          $scope.loadAvatar();
+          $scope.checkFollowings();
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.checkFollowings = function () {
+    $scope.user.Follower.forEach((follower) => {
+      if (follower.followingId === $scope.maintUser.data.id) {
+        return ($scope.isFollowing = true);
+      } else {
+        return ($scope.isFollowing = false);
+      }
+    });
+  };
+  $scope.unFolow = function (userid) {
+    const info = {
+      followerId: userid,
+      followingId: $scope.maintUser.data.id,
+    };
+    $http.post("/unfollow", info).then(
+      function (response) {
+        if (response.status === 200) {
+          alert("unFollowing");
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.folow = function (userid) {
+    const info = {
+      followerId: userid,
+      followingId: $scope.maintUser.data.id,
+    };
+    $http.post("/follow", info).then(
+      function (response) {
+        if (response.status === 200) {
+          alert("Following");
         }
       },
       function (error) {
@@ -86,6 +130,16 @@ app.controller("ProfileCtrl", function ($scope, $http) {
         }
       });
     }
+  };
+  $scope.handleShowFullPost = function (post) {
+    $(".comment-overlay").show();
+    $rootScope.currentPost = post;
+    $rootScope.currentPost.Avatar = post.Users[0].Avatar;
+    $rootScope.currentPost.firstName = post.Users[0].firstName;
+    $rootScope.currentPost.lastName = post.Users[0].lastName;
+    $rootScope.currentPost.Media = post.Users[0].Media;
+    $rootScope.currentPost.Reations = post.Users[0].Reactions;
+    $rootScope.currentPost.Comment = post.Users[0].Comment;
   };
 
   $scope.loadUserProfile();

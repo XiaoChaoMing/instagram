@@ -47,6 +47,13 @@ class CustomerRepository {
     const data = await sequelize.query(`EXEC GetUserProfile @UserId = ${id}`);
     return data[0];
   }
+  async searchUser(info) {
+    const { keyword, pageNumber } = info;
+    const data = await sequelize.query(
+      `EXEC SearchUsers @keyword = ${keyword},@pageSize = 5,@pageNumber = ${pageNumber}`
+    );
+    return FormateData({ data });
+  }
   // async folowing(userinput) {
   //   const { followerId, followingId } = userinput;
   //   const existFollowers = await this.checkExistFollow({

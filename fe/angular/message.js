@@ -1,7 +1,6 @@
 var app = angular.module("instarApp");
 app.controller("MessageCtrl", function ($scope, $http) {
   $scope.currentFriend;
-  $scope.currentfrMess;
   $scope.currentChat;
   $scope.loadUserProfile = function () {
     var loggedInUser = localStorage.getItem("loggedInUser");
@@ -38,7 +37,10 @@ app.controller("MessageCtrl", function ($scope, $http) {
           return 0;
         }
       });
-      $scope.currentChat.msgAll = $scope.newMessage.msgAll;
+      if ($scope.PrvMessage.id === $scope.newMessage.id) {
+        $scope.currentChat.msgAll = $scope.newMessage.msgAll;
+      }
+
       $scope.scrollBottom();
     });
   };
@@ -54,20 +56,33 @@ app.controller("MessageCtrl", function ($scope, $http) {
         if (response.data.status === 200) {
           const data = response.data.data.data.Message[0][0];
           $scope.PrvMessage = data;
-          $scope.PrvMessage.msgAll = JSON.parse(data.msgSend).concat(
-            JSON.parse(data.msgRecive)
-          );
-          $scope.PrvMessage.msgAll = $scope.PrvMessage.msgAll.filter(
-            (value) => value !== null
-          );
-          $scope.PrvMessage.msgAll.sort((a, b) => {
-            if (a && b && a.createdAt && b.createdAt) {
-              return new Date(a.createdAt) - new Date(b.createdAt);
+          if (JSON.parse(data.msgSend) || JSON.parse(data.msgRecive)) {
+            if (JSON.parse(data.msgSend) && JSON.parse(data.msgRecive)) {
+              $scope.PrvMessage.msgAll = JSON.parse(data.msgSend).concat(
+                JSON.parse(data.msgRecive)
+              );
             } else {
-              return 0;
+              JSON.parse(data.msgSend) !== null
+                ? ($scope.PrvMessage.msgAll = JSON.parse(data.msgSend))
+                : ($scope.PrvMessage.msgAll = JSON.parse(data.msgRecive));
             }
-          });
+
+            $scope.PrvMessage.msgAll = $scope.PrvMessage.msgAll.filter(
+              (value) => value !== null
+            );
+            $scope.PrvMessage.msgAll.sort((a, b) => {
+              if (a && b && a.createdAt && b.createdAt) {
+                return new Date(a.createdAt) - new Date(b.createdAt);
+              } else {
+                return 0;
+              }
+            });
+          } else {
+            $scope.PrvMessage.msgAll = [];
+          }
+
           $scope.currentChat = $scope.PrvMessage;
+          console.log($scope.currentChat, $scope.PrvMessage);
           $scope.scrollBottom();
         }
       },
@@ -83,7 +98,6 @@ app.controller("MessageCtrl", function ($scope, $http) {
       toUserId: $scope.currentFriend,
       messageText: $scope.MessText,
     };
-    console.log(msg);
     $http.post("/SendMessage", msg).then(
       function (response) {
         if (response.data.status === 200) {
@@ -97,7 +111,6 @@ app.controller("MessageCtrl", function ($scope, $http) {
   };
   $scope.scrollBottom = function () {
     const scrollT = $(".chat-box_maint");
-    console.log(scrollT.scrollTop);
     $(".add-comment input").val("");
     scrollT.animate(
       {

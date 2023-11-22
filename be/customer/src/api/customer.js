@@ -130,4 +130,9 @@ module.exports = (app, io, storage, users) => {
     const data = await this.customerService.Follower(req.params.id);
     res.json({ data: data });
   });
+  app.post("/searchUser", async (req, res, next) => {
+    const { keyword, pageNumber } = req.body;
+    const data = await this.customerService.searchUser({ keyword, pageNumber });
+    res.json({ status: 200, data: data });
+  });
 };

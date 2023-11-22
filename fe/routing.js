@@ -8,6 +8,11 @@ app.config(function ($routeProvider, $locationProvider) {
       requireAuth: true,
       controller: "HomeCtrl",
     })
+    .when("/admin", {
+      templateUrl: "./admin.html",
+      requireAuth: true,
+      controller: "AdminCtrl",
+    })
     .when("/reels", {
       templateUrl: "./pages/test.html",
       requireAuth: true,

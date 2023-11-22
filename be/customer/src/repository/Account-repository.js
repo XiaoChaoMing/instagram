@@ -17,7 +17,7 @@ class AccountRepository {
         userName: userName,
         Password: userPassword,
         Salt: salt,
-        isAdmin: 1,
+        isAdmin: 0,
       });
       return 1;
     } else {

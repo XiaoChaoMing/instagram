@@ -1,7 +1,8 @@
 var app = angular.module("instarApp");
-app.controller("HomeCtrl", function ($scope, $http, $rootScope) {
+app.controller("HomeCtrl", function ($scope, $http, $rootScope, $location) {
   $scope.user;
   $scope.commentText = "";
+  $rootScope.currentEditPost;
   $rootScope.currentPost = {
     id: 0,
     Comment: [],
@@ -56,6 +57,11 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope) {
     });
     window.Mysocket.on("newReact", (data) => {
       $scope.loadPost();
+    });
+    window.Mysocket.on("updatePost", (data) => {
+      $scope.$apply(function () {
+        $scope.loadPost();
+      });
     });
   };
   $scope.loadRecommentUser = function () {
@@ -224,6 +230,7 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope) {
   $scope.handleShowComment = function (post) {
     $(".comment-overlay").show();
     $rootScope.currentPost = post;
+    console.log($rootScope.currentPost);
   };
   $scope.commentPost = function (postId, toUserId) {
     const comment = {
@@ -272,7 +279,6 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope) {
           $scope.postUserPrf.JsonPosts = JSON.parse(data.JsonPosts).slice(0, 3);
           $scope.postUserPrf.Follower = JSON.parse(data.Follower);
           $scope.postUserPrf.Following = JSON.parse(data.Following);
-          console.log($scope.postUserPrf.JsonPosts[0].PostMedia[0].mediaFile);
         }
       },
       function (error) {
@@ -294,6 +300,97 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope) {
       1000
     );
   };
+  $scope.gotoProfile = function (path, post) {
+    localStorage.setItem("currentPost", JSON.stringify(post));
+    $location.path(path);
+  };
+  $scope.searchUser = function () {
+    const info = {
+      keyword: $scope.searchInput,
+      pageNumber: 1,
+    };
+    console.log(info);
+    $http.post("/searchUser", info).then(
+      function (response) {
+        if (response.data.status === 200) {
+          const data = response.data.data.data.data[0];
+          $scope.searchResult = data;
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+  $scope.toggleMenu = function () {
+    console.log("test");
+    $(".menuPost").toggleClass("togglePostMenu");
+  };
+  $scope.editPost = function (post) {
+    $(".editPost_overlay").show();
+    $rootScope.currentEditPost = post;
+    console.log($rootScope.currentEditPost);
+  };
+  $scope.deleteMediaFile = function (media) {
+    let userConfirm = confirm("ban co chac la muon xoa anh khong");
+    if (userConfirm === true) {
+      let index = $rootScope.currentEditPost.Media.indexOf(media);
+      $rootScope.currentEditPost.Media[index].type = 0;
+      console.log($rootScope.currentEditPost);
+    }
+  };
+  $scope.uploadFile = function (files) {
+    var filesArray = Array.from(files);
+    const promises = filesArray.map((file, index) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          window.Mysocket.emit(
+            "sendFile",
+            { file: event.target.result, name: file.name },
+            (status) => {
+              console.log(status);
+              $rootScope.currentEditPost.Media.push({
+                mediaFile: reader.result,
+                type: 1,
+                name: file.name,
+              });
+              resolve(reader.result);
+            }
+          );
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    });
+    Promise.all(promises).then(() => {
+      console.log("upload successful");
+    });
+  };
+  $scope.updatePost = function () {
+    $http
+      .post("/updatePost", $rootScope.currentEditPost)
+      .then(function (response) {
+        console.log(response);
+      });
+  };
+  $scope.deletePost = function (post) {
+    console.log(post.id);
+    let userConfirm = confirm("ban co chac la muon xoa post khong");
+    if (userConfirm === true) {
+      $http.post("/deletePost/" + post.id).then(
+        function (response) {
+          if (response.status === 200) {
+            alert("post deleted");
+          }
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
+    }
+  };
+  $scope.LoadImage = function () {};
   $scope.loadUser();
   $scope.loadPost();
   $scope.LoadNotify();

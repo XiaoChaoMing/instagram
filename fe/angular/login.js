@@ -1,7 +1,7 @@
 var app = angular.module("instarApp", []);
 app.controller("LoginCtrl", function ($scope, $http, $location) {
   $scope.login = function (user) {
-    $http.post("http://localhost:3000/login", user).then(
+    $http.post("http://localhost:8000/login", user).then(
       function (response) {
         if (response.data.status === 200) {
           alert("Đăng nhập thành công");
@@ -10,7 +10,11 @@ app.controller("LoginCtrl", function ($scope, $http, $location) {
             JSON.stringify(response.data.data)
           );
 
-          window.location.href = "/";
+          if (response.data.data.data.isAdmin) {
+            window.location.href = "/admin";
+          } else {
+            window.location.href = "/";
+          }
         } else {
           alert("Đăng nhập thất bại");
         }

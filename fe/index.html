@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="/base.css" />
     <link rel="stylesheet" href="style.css" />
     <!-- socket -->
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="http://localhost:8001/socket.io/socket.io.js"></script>
     <script type="module" defer src="./socket-client.js"></script>
     <title>Document</title>
   </head>
@@ -32,10 +32,22 @@
       
       <div class="Search-overlay">
         <p>Search</p>
-
         <div class="Search-ov_Wraper">
           <div class="Search-ov-input">
-            <input type="text" placeholder="Search" />
+            <input type="text" ng-model="searchInput" placeholder="Search" />
+            <div class="Search-ov-icont" ng-click="searchUser()">
+              <i class="ri-search-line"></i>
+            </div>
+          </div>
+          <div class="searchResult">
+            <div class="resultWraper" ng-click="gotoProfile('/profile',user.id)" ng-repeat="user in searchResult">
+              <div class="resultImgWrapper">
+                <img ng-src="{{user.Avatar}}" alt="">
+              </div>
+              <div class="resultName">
+                {{user.firstName+"_"+user.lastName}}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -71,11 +83,11 @@
           <div class="create-modal">
             
             <div class="createPostHeader">
-              <p class="crph prev-crp" style="display: none;">Back</p>
+              <p class="crph prev-crp" ng-click="loadImage" style="display: none;">Back</p>
               <p>Create New Post</p>
               <p class="crph next-crp" ng-click="createPost()" style="display: none;">Next</p>
             </div>
-            <div class="crpBody">
+            <div class="edpBody">
               <div class="create-post">
               
                 <svg
@@ -145,6 +157,60 @@
           </div>
           
         </div>
+      </div>
+      <div class="editPost_overlay">
+        <div class="btn-close_edPost">
+          <i class="ri-close-fill ri-lg"></i>
+        </div>
+        <div class="edit-modals_wraper">
+          <div class="editPostHeader">
+            <p class="crph prev-crp" ng-click="LoadImage()" style="display: none;">Load images</p>
+            <p>Create New Post</p>
+            <p class="crph next-crp" ng-click="updatePost()" style="display: none;">Next</p>
+          </div>
+          <div class="edpBody">
+            <div class="crpWraper" style="display: block;">
+              
+              <div class="edpContainer" >
+          <div class="imgWrapered" ng-if="media.type !== 0" ng-repeat="media in currentEditPost.Media">
+            <div class="deleteImg" ng-click="deleteMediaFile(media)">
+              <i class="ri-close-circle-line"></i>
+            </div>
+            <img height="100%" width="100%" ng-src="{{media.mediaFile}}" alt="">
+          </div>
+          <div class="imgWrapered">
+            <div class="addImgWraper">
+              <label class="submit-create" style="background-color: transparent;">
+                <input ng-change="uploadFile(Mediafile)" class="input-file" type="file" multiple select-ng-files ng-model="Mediafile"></button>
+                <i class="ri-add-line"></i>
+              </label>
+                
+            </div>
+          </div>
+          </div>
+            </div>
+            <div class="create-status" style="display: block;">
+              <div>
+                <div class="crpAccount">
+                  <div class="Avt-wraper">
+                    <img ng-src="{{currentEditPost.Avatar}}" alt="">
+                  </div>
+                  <div class="crpInfo-User">
+                    <div class="i4-nickName ng-binding">{{currentEditPost.nickName}}</div>
+                    <div class="i4-UserName ng-binding">{{currentEditPost.firstName+"_"+currentEditPost.lastName}}</div>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="createCaption">
+                
+                  <textarea class="captionInput ng-pristine ng-valid ng-empty ng-touched" cols="25" rows="40" ng-model="currentEditPost.Status"></textarea>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
       <div class="comment-overlay">
         <div class="btn-close_comment">
@@ -554,7 +620,7 @@
             </div>
             <!-- Profile -->
             <div class="item">
-              <a href="#/profile">
+              <a ng-click="gotoProfile('/profile',user.id)">
                 <div class="prfAvt-wraper">
                   <img
                   style="border-radius: 50%"
