@@ -419,7 +419,7 @@ input {
   height: 100vh;
   display: flex;
   box-sizing: border-box;
-  justify-content: end;
+  justify-content: center;
   overflow: scroll;
 }
 .mobile-header {
@@ -430,6 +430,7 @@ input {
 }
 .content-wraper {
   max-width: 630px;
+  margin: 0 200px;
 }
 .maint-story {
   position: relative;
@@ -982,6 +983,8 @@ input {
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .MpostItem {
   background-color: #262626;
@@ -990,6 +993,9 @@ input {
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #1a1a1a;
 }
 
 .message_wrapper {
@@ -1336,4 +1342,43 @@ input {
 }
 .Search-ov_Wraper {
   margin-top: 30px;
+}
+.maint-explore {
+  flex-basis: 80%;
+  height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: end;
+  overflow: scroll;
+  padding: 10px 85px 10px 60px;
+}
+.explore-wraper {
+  height: fit-content;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(3, calc((100% / 3) - 10px));
+  grid-template-rows: repeat(3);
+  gap: 10px;
+}
+.exploreItem {
+  background-color: #262626;
+  min-width: 336.75px;
+  min-height: 336.75px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.exploreOverlay {
+  position: absolute;
+  background-color: #262626;
+  opacity: 0.7;
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+.exploreItem:hover > .exploreOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
 }

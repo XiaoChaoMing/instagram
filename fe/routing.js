@@ -8,11 +8,6 @@ app.config(function ($routeProvider, $locationProvider) {
       requireAuth: true,
       controller: "HomeCtrl",
     })
-    .when("/admin", {
-      templateUrl: "./admin.html",
-      requireAuth: true,
-      controller: "AdminCtrl",
-    })
     .when("/reels", {
       templateUrl: "./pages/test.html",
       requireAuth: true,
@@ -30,6 +25,11 @@ app.config(function ($routeProvider, $locationProvider) {
     })
     .when("/editProfile", {
       templateUrl: "./pages/editProfile.html",
+      requireAuth: true,
+      controller: "ProfileCtrl",
+    })
+    .when("/explore", {
+      templateUrl: "./pages/explore.html",
       requireAuth: true,
       controller: "ProfileCtrl",
     })

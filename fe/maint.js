@@ -578,22 +578,22 @@ const App = {
     });
     $(".btn-close_edPost").on("click", () => {
       $(".editPost_overlay").hide();
-      $(".edpContainer")
-        .html(`<div class="imgWrapered" ng-repeat="media in currentEditPost.Media">
-      <div class="deleteImg" ng-click="deleteMediaFile()">
-        <i class="ri-close-circle-line"></i>
-      </div>
-      <img height="100%" width="100%" ng-src="{{media.mediaFile}}" alt="">
-    </div>
-    <div class="imgWrapered">
-      <div class="addImgWraper">
-        <label class="submit-create" style="background-color: transparent;">
-          <input ng-change="uploadFile(Mediafile)" class="input-file" type="file" multiple select-ng-files ng-model="Mediafile"></button>
-          <i class="ri-add-line"></i>
-        </label>
-          
-      </div>
-    </div>`);
+      //   $(".edpContainer")
+      //     .html(`<div class="imgWrapered" ng-repeat="media in currentEditPost.Media">
+      //   <div class="deleteImg" ng-click="deleteMediaFile()">
+      //     <i class="ri-close-circle-line"></i>
+      //   </div>
+      //   <img height="100%" width="100%" ng-src="{{media.mediaFile}}" alt="">
+      // </div>
+      // <div class="imgWrapered">
+      //   <div class="addImgWraper">
+      //     <label class="submit-create" style="background-color: transparent;">
+      //       <input ng-change="uploadFile(Mediafile)" class="input-file" type="file" multiple select-ng-files ng-model="Mediafile"></button>
+      //       <i class="ri-add-line"></i>
+      //     </label>
+
+      //   </div>
+      // </div>`);
     });
     $(".emoji").on("click", (el) => {
       $(el.currentTarget).children(".emoji-picker").toggle();

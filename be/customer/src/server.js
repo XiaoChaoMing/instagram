@@ -18,7 +18,7 @@ const users = {};
 initializeApp(config);
 const storage = getStorage();
 const corsOptions = {
-  origin: ["http://127.0.0.1:8001"],
+  origin: ["http://127.0.0.1:8001", "http://127.0.0.1:8002"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
@@ -37,13 +37,14 @@ io.on("connection", (socket) => {
   console.log(userId);
   users[userId] = socket.id;
   expressApp(app, io, storage, users);
+  io.emit("adminConnect", { data: users });
   socket.on("disconnect", () => {
     delete users[userId];
     console.log("user disconnected");
+    io.emit("adminConnect", { data: users });
   });
-
+  console.log(users);
   socket.on("sendFile", (data, callback) => {
-    console.log(data);
     let imageBuffer;
     imageBuffer = Buffer.from(data.file.split(";base64,")[1], "base64");
     const mountainsRef = ref(storage, "img/" + data.name);
@@ -55,13 +56,9 @@ io.on("connection", (socket) => {
     callback({ status: "success" });
   });
 });
-// app.listen(PORT, () => {
-//   console.log(`Listening on port ${PORT}`);
-// });
-// httpServer.listen(3000, () => {
-//   console.log("listening on port 3000");
-// });
+
 app.start = app.listen = function () {
   return httpServer.listen.apply(httpServer, arguments);
 };
 app.start(PORT);
+module.exports = io;

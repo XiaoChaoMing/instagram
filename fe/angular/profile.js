@@ -140,6 +140,12 @@ app.controller("ProfileCtrl", function ($scope, $http, $rootScope) {
     $rootScope.currentPost.Media = post.Users[0].Media;
     $rootScope.currentPost.Reations = post.Users[0].Reactions;
     $rootScope.currentPost.Comment = post.Users[0].Comment;
+    $rootScope.currentPost.LikeByUser = false;
+    if (post.Users[0].Reactions != null) {
+      $rootScope.currentPost.LikeByUser = post.Reations.some((item) => {
+        return item.userId === $scope.user.id;
+      });
+    }
   };
 
   $scope.loadUserProfile();

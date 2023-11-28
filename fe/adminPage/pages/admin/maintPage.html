@@ -1,0 +1,103 @@
+<div class="head-title">
+  <div class="left">
+    <h1>Dashboard</h1>
+    <ul class="breadcrumb">
+      <li>
+        <a>Dashboard</a>
+      </li>
+      <li><i class="bx bx-chevron-right"></i></li>
+      <li>
+        <a class="active" href="#">Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ul class="box-info">
+  <li>
+    <i class="bx bxs-calendar-check"></i>
+    <span class="text">
+      <h3>{{totalPost}}</h3>
+      <p>Posts</p>
+    </span>
+  </li>
+  <li>
+    <i class="bx bxs-group"></i>
+    <span class="text">
+      <h3>{{totalVisiter.length}}</h3>
+      <p>Visitors</p>
+    </span>
+  </li>
+  <li>
+    <i class="bx bxs-dollar-circle"></i>
+    <span class="text">
+      <h3>{{totalUser}}</h3>
+      <p>Users</p>
+    </span>
+  </li>
+</ul>
+
+<div class="table-data">
+  <div class="order">
+    <div class="head">
+      <h3>List User</h3>
+      <i class="bx bx-search"></i>
+      <i class="bx bx-filter"></i>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>User Create Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in userLists">
+          <td>
+            <img ng-src="{{user.Avatar}}" />
+            <p>{{user.firstName+"_"+user.lastName}}</p>
+          </td>
+          <td>{{user.createdAt}}</td>
+          <td>
+            <span class="status completed" ng-if="user.isOnline === true"
+              >online</span
+            >
+            <span class="status completed" ng-if="user.isOnline === false"
+              >ofline</span
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="todo">
+    <div class="head">
+      <h3>Ban Lists</h3>
+      <i class="bx bx-plus"></i>
+      <i class="bx bx-filter"></i>
+    </div>
+    <ul class="todo-list">
+      <li class="completed">
+        <p>Todo List</p>
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </li>
+      <li class="completed">
+        <p>Todo List</p>
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </li>
+      <li class="not-completed">
+        <p>Todo List</p>
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </li>
+      <li class="completed">
+        <p>Todo List</p>
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </li>
+      <li class="not-completed">
+        <p>Todo List</p>
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </li>
+    </ul>
+  </div>
+</div>

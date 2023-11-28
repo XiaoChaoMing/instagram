@@ -30,6 +30,11 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope, $location) {
             post.Comment = JSON.parse(post.Comment);
             post.Reactions = JSON.parse(post.Reactions);
             post.TimeFromNow = moment(post.createdAt).fromNow();
+            if (post.Reactions !== null) {
+              post.LikeByUser = post.Reactions.some((item) => {
+                return item.userId === $scope.user.id;
+              });
+            }
             return post;
           });
         }
@@ -276,7 +281,7 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope, $location) {
           const data = response.data.data.data[0];
           $scope.postUserPrf = data;
           $scope.postUserPrf.id = post.userId;
-          $scope.postUserPrf.JsonPosts = JSON.parse(data.JsonPosts).slice(0, 3);
+          $scope.postUserPrf.JsonPosts = JSON.parse(data.JsonPosts);
           $scope.postUserPrf.Follower = JSON.parse(data.Follower);
           $scope.postUserPrf.Following = JSON.parse(data.Following);
         }

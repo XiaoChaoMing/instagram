@@ -1,28 +1,49 @@
 var app = angular.module("instarApp", []);
 app.controller("LoginCtrl", function ($scope, $http, $location) {
+  $scope.adminPage = false;
   $scope.login = function (user) {
-    $http.post("http://localhost:8000/login", user).then(
-      function (response) {
-        if (response.data.status === 200) {
-          alert("Đăng nhập thành công");
-          localStorage.setItem(
-            "loggedInUser",
-            JSON.stringify(response.data.data)
-          );
-
-          if (response.data.data.data.isAdmin) {
-            window.location.href = "/admin";
-          } else {
+    if (!$scope.adminPage) {
+      console.log("login");
+      $http.post("http://localhost:8001/login", user).then(
+        function (response) {
+          if (response.data.status === 200) {
+            alert("Đăng nhập thành công");
+            localStorage.setItem(
+              "loggedInUser",
+              JSON.stringify(response.data.data)
+            );
             window.location.href = "/";
+          } else {
+            alert("Đăng nhập thất bại");
           }
-        } else {
-          alert("Đăng nhập thất bại");
+        },
+        function (error) {
+          console.log(error);
         }
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
+      );
+    } else {
+      $http.post("http://localhost:8002/loginAdmin", user).then(
+        function (response) {
+          if (response.data.status === 200) {
+            if (response.data.data.data.isAdmin) {
+              alert("Đăng nhập thành công");
+              window.location.href = "http://localhost:8002/admin";
+              localStorage.setItem(
+                "loggedInUser",
+                JSON.stringify(response.data.data)
+              );
+            } else {
+              alert("bạn không phải admin");
+            }
+          } else {
+            alert("Đăng nhập thất bại");
+          }
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
+    }
   };
 });
 app.factory("authInterceptor", [

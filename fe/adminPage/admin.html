@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- angular js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <!-- My CSS -->
+    <link type="text/css" rel="stylesheet" href="/styles.css" />
+
+    <title>AdminHub</title>
+    <link
+      rel="icon"
+      type="images/x-icon"
+      href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"
+    />
+    <script defer src="http://localhost:8002/socket.io/socket.io.js"></script>
+    <script type="module" defer src="./socket-client.js"></script>
+  </head>
+  <body ng-app="adminApp" ng-controller="AdminCtrl">
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <a class="brand" style="padding-left: 5px">
+        <img
+          height="24"
+          width="23"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"
+          alt=""
+        />
+        <span class="text" style="padding-left: 10px">AdminHub</span>
+      </a>
+      <ul class="side-menu top">
+        <li class="active">
+          <a href="admin#/">
+            <i class="bx bxs-dashboard"></i>
+            <span class="text">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin#/loz ">
+            <i class="bx bxs-shopping-bag-alt"></i>
+            <span class="text">Post List</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <i class="bx bxs-doughnut-chart"></i>
+            <span class="text">Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <i class="bx bxs-message-dots"></i>
+            <span class="text">Admin</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <i class="bx bxs-group"></i>
+            <span class="text">Team</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <div ng-click="logoutAdmin()" class="logout">
+            <i class="bx bxs-log-out-circle"></i>
+            <span class="text">Logout</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button type="submit" class="search-btn">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+        <a class="notification">
+          <i class="bx bxs-bell"></i>
+          <span class="num">8</span>
+        </a>
+        <a class="profile">
+          <img src="img/people.png" />
+        </a>
+      </nav>
+      <!-- NAVBAR -->
+      <!-- MAIN -->
+      <main ng-view></main>
+      <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <script type="module" src="./adminRouting.js"></script>
+    <script type="module" src="./../angular/admin.js"></script>
+    <script type="module" src="./../pages/admin/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  </body>
+</html>
