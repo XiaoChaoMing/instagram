@@ -44,6 +44,7 @@ io.on("connection", (socket) => {
     io.emit("adminConnect", { data: users });
   });
   console.log(users);
+  //create post
   socket.on("sendFile", (data, callback) => {
     let imageBuffer;
     imageBuffer = Buffer.from(data.file.split(";base64,")[1], "base64");

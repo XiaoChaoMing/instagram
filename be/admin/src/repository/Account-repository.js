@@ -26,7 +26,7 @@ class AccountRepository {
   }
 
   async updateAccount(userInput) {
-    const { userName, password, salt, admin, refreshToken } = userInput;
+    const { id, password, salt, admin, refreshToken } = userInput;
     await Account.update(
       {
         Password: password,
@@ -34,7 +34,7 @@ class AccountRepository {
         isAdmin: admin,
         RefreshTokken: refreshToken,
       },
-      { where: { userName: userName } }
+      { where: { id: id } }
     );
   }
   async deleteAccount(id) {

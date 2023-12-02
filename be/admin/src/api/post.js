@@ -126,4 +126,12 @@ module.exports = (app) => {
     const data = await this.postService.getAllPost();
     res.json({ status: 200, msg: "get post success", data: data });
   });
+  app.get("/postChartByYear", async (req, res, next) => {
+    const chart = await this.postService.postChartByYear();
+    res.json({ status: 200, data: chart });
+  });
+  app.get("/getUserWeeklyPost/:id", async (req, res, next) => {
+    const chart = await this.postService.getWeeklyPost(req.params.id);
+    res.json({ status: 200, data: chart });
+  });
 };

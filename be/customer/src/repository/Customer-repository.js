@@ -10,12 +10,12 @@ const {
 const sequelize = require("../bd-connection");
 class CustomerRepository {
   async createUser(userInput) {
-    const { firstName, lastName, Avatar, birthDay, sexual, accountId } =
-      userInput;
+    const { firstName, lastName, birthDay, sexual, accountId } = userInput;
     await User.create({
       firstName: firstName,
       lastName: lastName,
-      Avatar: Avatar,
+      Avatar:
+        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-5b21f.appspot.com/o/img%2F360_F_408244382_Ex6k7k8XYzTbiXLNJgIL8gssebpLLBZQ.jpg?alt=media&token=2b7ecd60-d5bc-46d4-a050-0b78cf0ad0ff",
       birthDay: birthDay,
       Sexual: sexual,
       accountId: await accountId,

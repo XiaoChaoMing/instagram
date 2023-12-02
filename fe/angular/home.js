@@ -334,6 +334,7 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope, $location) {
   $scope.editPost = function (post) {
     $(".editPost_overlay").show();
     $rootScope.currentEditPost = post;
+    console.log(post);
     console.log($rootScope.currentEditPost);
   };
   $scope.deleteMediaFile = function (media) {
@@ -395,10 +396,25 @@ app.controller("HomeCtrl", function ($scope, $http, $rootScope, $location) {
       );
     }
   };
+  $scope.checkLegitAcccount = function () {
+    $http.get("/checkBanUser/" + $scope.user.id).then(
+      function (response) {
+        if (response.data.status === 200) {
+          if (response.data.isBan) {
+            alert(response.data.msg);
+            $scope.logout();
+          }
+        }
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
   $scope.LoadImage = function () {};
   $scope.loadUser();
+  $scope.checkLegitAcccount();
   $scope.loadPost();
   $scope.LoadNotify();
-
   $scope.loadRecommentUser();
 });

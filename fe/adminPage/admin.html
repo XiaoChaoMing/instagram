@@ -23,8 +23,83 @@
     />
     <script defer src="http://localhost:8002/socket.io/socket.io.js"></script>
     <script type="module" defer src="./socket-client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body ng-app="adminApp" ng-controller="AdminCtrl">
+    <!-- select user overlay -->
+    <div class="userMenuOverlay">
+      <div class="close-btn">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAASdJREFUWEftltENwjAMRK+bwCTAJjAJMAkwCWwCbIJOaqSoSuqz048iJZ9Nbb+cHTsDVraGlfGgA1kZ6Qp1hSwFrP2/r6E9gJd1ysn+EcBdtfEoRMc3AFcAFzHAE8AGwEO1UYHo9J1BKFCEoaJcHwAnRV0PEBU6i1A5DE2YMgKZSwWiI6qkQIVhGMQDpEA1wUSA5qB2Wc240pTn0atQsi2lL/cr18y0qKJANaXCyiSwFiD6mNYMvyktoXrbWoBKMClQGCoKVLpNX0efWlSh2tVW+9Rsc/QqZPWZZigPkAUz1xLkmlKB0qRPQa0+U1JqOw7ZxVLGJweHqwVTUuqgTPrI6HA9tsaBnJ4f5qSPAElOW35Sa6glhsu2A1lydYW6QpYC1v7qaugHy2g8JQvMuO0AAAAASUVORK5CYII="
+        />
+      </div>
+      <div class="OvMaintMenu">
+        <div class="banUser">
+          <p ng-if="isBan === false" ng-click="banUser()">Ban user</p>
+          <p ng-if="isBan === true" ng-click="unBanUser()">unBan user</p>
+        </div>
+        <div class="admintrator" ng-click="adminPermission()">
+          admin permissions
+        </div>
+      </div>
+    </div>
+    <!-- POST MODAL OVERLAY -->
+    <div class="postModalOverLay">
+      <div class="postCls-btn">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAASdJREFUWEftltENwjAMRK+bwCTAJjAJMAkwCWwCbIJOaqSoSuqz048iJZ9Nbb+cHTsDVraGlfGgA1kZ6Qp1hSwFrP2/r6E9gJd1ysn+EcBdtfEoRMc3AFcAFzHAE8AGwEO1UYHo9J1BKFCEoaJcHwAnRV0PEBU6i1A5DE2YMgKZSwWiI6qkQIVhGMQDpEA1wUSA5qB2Wc240pTn0atQsi2lL/cr18y0qKJANaXCyiSwFiD6mNYMvyktoXrbWoBKMClQGCoKVLpNX0efWlSh2tVW+9Rsc/QqZPWZZigPkAUz1xLkmlKB0qRPQa0+U1JqOw7ZxVLGJweHqwVTUuqgTPrI6HA9tsaBnJ4f5qSPAElOW35Sa6glhsu2A1lydYW6QpYC1v7qaugHy2g8JQvMuO0AAAAASUVORK5CYII="
+        />
+      </div>
+      <div class="postContainer">
+        <div class="headerContainer">
+          <p>Delete Post</p>
+        </div>
+        <div class="bodyContainer">
+          <div class="maintPost">
+            <ul class="postSlider">
+              <li ng-repeat="media in CurrentPost.Users[0].Media">
+                <img
+                  height="100%"
+                  width="100%"
+                  ng-src="{{media.mediaFile}}"
+                  alt=""
+                />
+              </li>
+            </ul>
+          </div>
+          <div class="maintInterracter">
+            <div class="userInfo">
+              <img
+                height="45"
+                width="45"
+                ng-src="{{CurrentPost.Users[0].Avatar}}"
+                alt=""
+              />
+              <p>
+                {{CurrentPost.Users[0].firstName+"_"+CurrentPost.Users[0].lastName}}
+              </p>
+            </div>
+            <div class="maintComment">
+              <div
+                class="commentWraper"
+                ng-repeat="comment in CurrentPost.Users[0].Comment"
+              >
+                <div class="commentInfo">
+                  <img
+                    height="36"
+                    width="36"
+                    ng-src="{{comment.Avatar}}"
+                    alt=""
+                  />
+                  <p>{{comment.firstName+"_"+comment.lastName}}</p>
+                </div>
+                <div class="comment">{{comment.commentText}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- SIDEBAR -->
     <section id="sidebar">
       <a class="brand" style="padding-left: 5px">
@@ -44,13 +119,13 @@
           </a>
         </li>
         <li>
-          <a href="admin#/loz ">
+          <a href="admin#/postList ">
             <i class="bx bxs-shopping-bag-alt"></i>
             <span class="text">Post List</span>
           </a>
         </li>
         <li>
-          <a>
+          <a href="admin#/analystic">
             <i class="bx bxs-doughnut-chart"></i>
             <span class="text">Analytics</span>
           </a>
@@ -109,7 +184,8 @@
     </section>
     <!-- CONTENT -->
     <script type="module" src="./adminRouting.js"></script>
-    <script type="module" src="./../angular/admin.js"></script>
+    <script type="module" src="./angular/admin.js"></script>
+    <script type="module" src="./angular/analysticCtrl.js"></script>
     <script type="module" src="./../pages/admin/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   </body>

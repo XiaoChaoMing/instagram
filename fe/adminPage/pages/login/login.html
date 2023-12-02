@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- remix icon -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <!-- angular js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="./base.css" />
+    <link rel="stylesheet" href="logincss.css" />
+    <title>Document</title>
+  </head>
+  <body ng-app="adminApp" ng-controller="LoginCtrl">
+    <div class="login-wraper container split">
+      <div class="maint-login">
+        <div class="slider-login">
+          <img src="/src/images/login-slider/screenshot1.png" alt="" />
+        </div>
+        <div class="login-form_wraper">
+          <div class="login-form">
+            <div class="logo-insta">
+              <i></i>
+            </div>
+
+            <form ng-submit="login(user)" class="form-wraper">
+              <input
+                class="PhoneNum"
+                placeholder="Phone number, User name or Email"
+                type="text"
+                name=""
+                id=""
+                ng-model="user.userName"
+              />
+              <input
+                class="Password"
+                placeholder="Password"
+                type="password"
+                name=""
+                id=""
+                ng-model="user.Password"
+              />
+              <button type="submit">Log in</button>
+            </form>
+            <label class="switch">
+              <input type="checkbox" ng-model="adminPage" />
+              <span class="slider round"></span>
+            </label>
+            <div class="option">
+              <div></div>
+              <div>OR</div>
+              <div></div>
+            </div>
+            <div class="login-option">
+              <a href="">
+                <i class="ri-facebook-box-fill ri-xl"></i>
+                <div>Login with Facebook</div>
+              </a>
+              <a href="">
+                <p>Forgot password ?</p>
+              </a>
+            </div>
+          </div>
+          <div class="register-link">
+            <p>
+              Don't have an account?
+              <a href="./../register/register.html">
+                <span> Sign up </span>
+              </a>
+            </p>
+          </div>
+          <div class="platform">
+            <span>Get the app</span>
+            <div class="plat-option">
+              <a href="">
+                <img
+                  height="42"
+                  src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png"
+                  alt=""
+                />
+              </a>
+              <a href="">
+                <img
+                  height="42"
+                  src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png"
+                  alt=""
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="uper-footer">
+          <a href=""> Meta </a>
+          <a href=""> About </a>
+          <a href=""> Blog </a>
+          <a href=""> Jobs </a>
+          <a href=""> Help </a>
+          <a href=""> API </a>
+          <a href=""> Privacy </a>
+          <a href=""> Terms </a>
+          <a href=""> Location </a>
+          <a href=""> Instagram Lite </a>
+          <a href=""> Thread </a>
+          <a href=""> Contact Uploading & Non-User </a>
+          <a href=""> Meta Veryfied </a>
+          <a href=""> Instagram Lite </a>
+        </div>
+        <div>© 2023 Instagram from Meta</div>
+      </div>
+    </div>
+    <script type="module" src="./../../angular/login.js"></script>
+  </body>
+</html>

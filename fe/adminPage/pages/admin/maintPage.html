@@ -53,17 +53,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="user in userLists">
+        <tr
+          ng-repeat="user in userLists"
+          ng-click="selectUser(user.accId,user.isAdmin)"
+        >
           <td>
             <img ng-src="{{user.Avatar}}" />
             <p>{{user.firstName+"_"+user.lastName}}</p>
+            <p
+              ng-if="user.isAdmin === true"
+              style="color: #db504a; margin-left: 70px"
+            >
+              admin
+            </p>
           </td>
           <td>{{user.createdAt}}</td>
           <td>
             <span class="status completed" ng-if="user.isOnline === true"
               >online</span
             >
-            <span class="status completed" ng-if="user.isOnline === false"
+            <span
+              class="status completed"
+              style="background-color: #db504a"
+              ng-if="user.isOnline === false"
               >ofline</span
             >
           </td>
@@ -78,24 +90,9 @@
       <i class="bx bx-filter"></i>
     </div>
     <ul class="todo-list">
-      <li class="completed">
-        <p>Todo List</p>
-        <i class="bx bx-dots-vertical-rounded"></i>
-      </li>
-      <li class="completed">
-        <p>Todo List</p>
-        <i class="bx bx-dots-vertical-rounded"></i>
-      </li>
-      <li class="not-completed">
-        <p>Todo List</p>
-        <i class="bx bx-dots-vertical-rounded"></i>
-      </li>
-      <li class="completed">
-        <p>Todo List</p>
-        <i class="bx bx-dots-vertical-rounded"></i>
-      </li>
-      <li class="not-completed">
-        <p>Todo List</p>
+      <li ng-repeat="banUser in banList" class="not-completed">
+        <img ng-src="{{banUser.Avatar}}" alt="" />
+        <p>{{banUser.firstName+"_"+banUser.lastName}}</p>
         <i class="bx bx-dots-vertical-rounded"></i>
       </li>
     </ul>

@@ -1,0 +1,52 @@
+<div class="head-title">
+  <div class="left">
+    <h1>Analystic</h1>
+    <ul class="breadcrumb">
+      <li>
+        <a>Analystic</a>
+      </li>
+      <li><i class="bx bx-chevron-right"></i></li>
+      <li>
+        <a class="active" href="admin#/">Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="maintAnalystic">
+  <div class="userChart">
+    <p>Users chart</p>
+    <canvas id="users"></canvas>
+  </div>
+  <div class="postChart">
+    <p>Posts per month</p>
+    <canvas id="posts"></canvas>
+  </div>
+</div>
+<div class="usersAnalystic" style="height: fit-content">
+  <div class="table-data" style="height: 500px">
+    <div class="order" style="flex-grow: unset; flex-basis: auto; height: 100%">
+      <div class="head">
+        <h3>List User</h3>
+        <i class="bx bx-filter"></i>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in userLists">
+            <td ng-click="loadUserWeeklyPost(user.id)">
+              <img ng-src="{{user.Avatar}}" />
+              <p>{{user.firstName+"_"+user.lastName}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prvUserAnalystic">
+      <canvas id="Weeklyposts"></canvas>
+    </div>
+  </div>
+</div>

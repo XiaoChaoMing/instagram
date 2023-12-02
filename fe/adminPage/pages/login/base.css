@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;600;900&display=swap");
+
+:root {
+  /* color */
+  /* font */
+  --ff-primary: "roboto", sans-serif;
+  --ff-accent: "Poppins", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  --webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  font-family: var(--ff-primary);
+  font-weight: 300;
+  font-size: 1.33rem;
+}
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 1em;
+}
+h2,
+h3,
+p {
+  margin-bottom: 1em;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+.text-center {
+  text-align: center;
+}
+header,
+section {
+  padding: 3rem 0;
+}
+
+.container {
+  margin-inline: auto;
+  width: min(90%, 70.5rem);
+}
+.split {
+  display: flex;
+  flex-direction: column;
+}
+.container--narrow {
+  max-width: 36rem;
+}

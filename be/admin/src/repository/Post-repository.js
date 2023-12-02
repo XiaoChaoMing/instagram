@@ -96,6 +96,16 @@ class PostRepository {
     const data = await sequelize.query(`EXEC GetLatestPost`);
     return FormateData(data);
   }
+  async PostChartByYear() {
+    const chart = await sequelize.query(`EXEC GetMonthlyPostCount`);
+    return FormateData({ chart });
+  }
+  async getWeeklyPost(userId) {
+    const chart = await sequelize.query(
+      `EXEC GetUserWeeklyPostCount ${userId}`
+    );
+    return FormateData({ chart });
+  }
 }
 
 module.exports = PostRepository;

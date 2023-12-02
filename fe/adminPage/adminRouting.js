@@ -8,10 +8,15 @@ app.config(function ($routeProvider, $locationProvider) {
       requireAuth: true,
       controller: "AdminCtrl",
     })
-    .when("/loz", {
-      templateUrl: "./../pages/admin/test.html",
+    .when("/postList", {
+      templateUrl: "./pages/admin/postList.html",
       requireAuth: true,
       controller: "AdminCtrl",
+    })
+    .when("/analystic", {
+      templateUrl: "./pages/admin/analystic.html",
+      requireAuth: true,
+      controller: "analysticCtrl",
     })
     .otherwise({
       redirectTo: "/login",

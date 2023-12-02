@@ -4,6 +4,7 @@ const AccountRepository = require("./../repository/Account-repository");
 const FolowRepository = require("./../repository/Follower-repository");
 const PostRepository = require("./../repository/Post-repository");
 const UserProfileRepository = require("../repository/UserProfile-repository");
+const BanListRepository = require("./../repository/BanList-repository");
 const {
   HashPassword,
   GenerateSalt,
@@ -20,6 +21,7 @@ class CustomerService {
     this.FollowRepo = new FolowRepository();
     this.UserProfileRepo = new UserProfileRepository();
     this.PostRepo = new PostRepository();
+    this.BanListRepo = new BanListRepository();
   }
 
   async SignIn(userInput) {
@@ -43,10 +45,10 @@ class CustomerService {
           await this.AccountRepo.updateAccount({ userName, refreshToken });
         }
         console.log("accessToken:" + token);
-        console.log(existAccount);
         return FormateData({
           id: existAccount[0].id,
           userName: existAccount[0].userName,
+          accountId: existAccount[0].accountId,
           token,
           isAdmin: existAccount[0].isAdmin,
           fullName: existAccount[0].firstName + " " + existAccount[0].lastName,
@@ -57,15 +59,8 @@ class CustomerService {
     }
   }
   async Register(accountInfo) {
-    const {
-      userName,
-      Password,
-      firstName,
-      lastName,
-      Avatar,
-      birthDay,
-      sexual,
-    } = accountInfo;
+    const { userName, Password, firstName, lastName, birthDay, sexual } =
+      accountInfo;
     const salt = await GenerateSalt();
     const userPassword = await HashPassword(Password, salt);
     const unq = await this.AccountRepo.createAccount({
@@ -78,7 +73,6 @@ class CustomerService {
       await this.customerRepo.createUser({
         firstName,
         lastName,
-        Avatar,
         birthDay,
         sexual,
         accountId,
@@ -140,6 +134,9 @@ class CustomerService {
   }
   async searchUser(info) {
     return await this.customerRepo.searchUser(info);
+  }
+  async getBanUser(accountId) {
+    return await this.BanListRepo.getBanUserByid(accountId);
   }
 }
 module.exports = CustomerService;

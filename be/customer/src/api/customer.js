@@ -15,21 +15,13 @@ module.exports = (app, io, storage, users) => {
   app.use("/register", router);
 
   app.post("/register", async (req, res) => {
-    const {
-      userName,
-      Password,
-      firstName,
-      lastName,
-      Avatar,
-      birthDay,
-      sexual,
-    } = req.body;
+    const { userName, Password, firstName, lastName, birthDay, sexual } =
+      req.body;
     const unq = await this.customerService.Register({
       userName,
       Password,
       firstName,
       lastName,
-      Avatar,
       birthDay,
       sexual,
     });
@@ -77,10 +69,9 @@ module.exports = (app, io, storage, users) => {
     } = req.body;
     setTimeout(async () => {
       if (Avatar) {
-        const imageRef = await ref(storage, `img/${Avatar}`);
+        const imageRef = ref(storage, `img/${Avatar}`);
         Avatarurl = await getDownloadURL(imageRef);
       }
-
       await this.customerService.updateUserProfile({
         userId,
         firstName,
@@ -94,9 +85,11 @@ module.exports = (app, io, storage, users) => {
         nickName,
         Description,
       });
+
       res.json({
         status: 200,
-        msg: "create success",
+        avt: Avatar ? Avatarurl : "null",
+        msg: "update success",
       });
     }, 1000);
   });
@@ -134,5 +127,13 @@ module.exports = (app, io, storage, users) => {
     const { keyword, pageNumber } = req.body;
     const data = await this.customerService.searchUser({ keyword, pageNumber });
     res.json({ status: 200, data: data });
+  });
+  app.get("/checkBanUser/:id", async (req, res, next) => {
+    const isBan = await this.customerService.getBanUser(req.params.id);
+    if (isBan) {
+      return res.json({ status: 200, isBan: isBan, msg: "ban da bi ban nick" });
+    } else {
+      return res.json({ status: 200, isBan: isBan });
+    }
   });
 };

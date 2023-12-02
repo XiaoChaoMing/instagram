@@ -9,7 +9,7 @@ const {
   uploadBytes,
   getDownloadURL,
 } = require("firebase/storage");
-module.exports = (app, socketUser, storage, user) => {
+module.exports = (app, io, storage, user) => {
   this.customerService = new CustomerService();
   this.NotifyService = new NotifyService();
   app.use("/register", router);
@@ -139,5 +139,24 @@ module.exports = (app, socketUser, storage, user) => {
     const data = await this.customerService.getAllUsers();
 
     res.json({ status: 200, data: data, totalUser: await user });
+  });
+  app.get("/banUser/:id", async (req, res, next) => {
+    await this.customerService.BanUser(req.params.id);
+    io.emit("banSuccess", { data: 1 });
+    res.json({ status: 200, msg: "ban user successfully" });
+  });
+  app.get("/unbanUser/:id", async (req, res, next) => {
+    await this.customerService.unBanUser(req.params.id);
+    io.emit("banSuccess", { data: 1 });
+    res.json({ status: 200, msg: "unban user successfully" });
+  });
+  app.get("/getBanList", async (req, res, next) => {
+    const data = await this.customerService.getBanList();
+    res.json({ status: 200, data: data });
+  });
+  app.post("/adminPermissions", async (req, res, next) => {
+    await this.customerService.adminPermissions(req.body);
+    io.emit("PermissionSuccess", { data: 1 });
+    res.json({ status: 200 });
   });
 };

@@ -31,6 +31,7 @@ app.controller("ProfileCtrl", function ($scope, $http, $rootScope) {
           $scope.user.Follower = JSON.parse(data.Follower);
           $scope.user.Following = JSON.parse(data.Following);
           $scope.checkFollowings();
+          $scope.loadAvatar();
         }
       },
       function (error) {
@@ -118,7 +119,14 @@ app.controller("ProfileCtrl", function ($scope, $http, $rootScope) {
             var loggedInUser = localStorage.getItem("loggedInUser");
             if (loggedInUser) {
               const newProfile = JSON.parse(loggedInUser).data;
-              newProfile.Avatar = $scope.Mediafile[0].name;
+              newProfile.Avatar = response.data.avt;
+              newProfile.fullName = users.firstName + " " + users.lastName;
+              newProfile.nickName = users.nickName;
+              console.log(newProfile);
+              localStorage.setItem(
+                "loggedInUser",
+                JSON.stringify({ data: newProfile })
+              );
             }
           }
         });
@@ -127,6 +135,17 @@ app.controller("ProfileCtrl", function ($scope, $http, $rootScope) {
       $http.post("/updateProfile", users).then((response) => {
         if (response.data.status === 200) {
           alert("Sua thong tin thanh cong");
+          var loggedInUser = localStorage.getItem("loggedInUser");
+          if (loggedInUser) {
+            const newProfile = JSON.parse(loggedInUser).data;
+            newProfile.fullName = users.firstName + " " + users.lastName;
+            newProfile.nickName = users.nickName;
+            console.log(newProfile);
+            localStorage.setItem(
+              "loggedInUser",
+              JSON.stringify({ data: newProfile })
+            );
+          }
         }
       });
     }

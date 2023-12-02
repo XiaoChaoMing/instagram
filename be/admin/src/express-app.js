@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { customer, posts } = require("./api");
-module.exports = async (app, socketUser) => {
+module.exports = async (app, io) => {
   app.use(express.json());
   app.use(cors());
   app.use(express.static(path.join(__dirname, "./../../../fe/adminPage")));
@@ -12,6 +12,6 @@ module.exports = async (app, socketUser) => {
     });
   });
 
-  customer(app, socketUser);
+  customer(app, io);
   posts(app);
 };

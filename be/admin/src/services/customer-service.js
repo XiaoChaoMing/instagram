@@ -4,6 +4,7 @@ const AccountRepository = require("./../repository/Account-repository");
 const FolowRepository = require("./../repository/Follower-repository");
 const PostRepository = require("./../repository/Post-repository");
 const UserProfileRepository = require("../repository/UserProfile-repository");
+const BanListRepository = require("./../repository/BanList-repository");
 const {
   HashPassword,
   GenerateSalt,
@@ -20,6 +21,7 @@ class CustomerService {
     this.FollowRepo = new FolowRepository();
     this.UserProfileRepo = new UserProfileRepository();
     this.PostRepo = new PostRepository();
+    this.BanListRepo = new BanListRepository();
   }
 
   async SignIn(userInput) {
@@ -143,6 +145,18 @@ class CustomerService {
   }
   async getAllUsers() {
     return await this.customerRepo.getAllUsers();
+  }
+  async BanUser(accountId) {
+    await this.BanListRepo.BanUser(accountId);
+  }
+  async unBanUser(accountId) {
+    await this.BanListRepo.UnBanUser(accountId);
+  }
+  async getBanList() {
+    return await this.BanListRepo.getBanList();
+  }
+  async adminPermissions(userInput) {
+    await this.AccountRepo.updateAccount(userInput);
   }
 }
 module.exports = CustomerService;

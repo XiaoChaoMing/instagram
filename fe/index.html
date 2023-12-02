@@ -165,12 +165,12 @@
         </div>
         <div class="edit-modals_wraper">
           <div class="editPostHeader">
-            <p class="crph prev-crp" ng-click="LoadImage()" style="display: none;">Load images</p>
+            <p class="crph prev-crp" ng-click="LoadImage()" >Load images</p>
             <p>Create New Post</p>
-            <p class="crph next-crp" ng-click="updatePost()" style="display: none;">Next</p>
+            <p class="crph next-crp" ng-click="updatePost()" >Next</p>
           </div>
           <div class="edpBody">
-            <div class="crpWraper" style="display: block;">
+            <div class="edpWraper" style="display: block;">
               
               <div class="edpContainer" >
           <div class="imgWrapered" ng-if="media.type !== 0" ng-repeat="media in currentEditPost.Media">
@@ -190,7 +190,7 @@
           </div>
           </div>
             </div>
-            <div class="create-status" style="display: block;">
+            <div class="edp-status" style="display: block;">
               <div>
                 <div class="crpAccount">
                   <div class="Avt-wraper">
@@ -652,9 +652,8 @@
                 <div class="prfAvt-wraper">
                   <img
                   style="border-radius: 50%"
-                  
                   class="_ab6-"
-                  ng-src="{{getAvatar()}}"
+                  ng-src="{{user.Avatar}}"
                   alt=""
                 />
                 </div>

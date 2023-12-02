@@ -259,6 +259,12 @@ input {
   display: none;
   border-left: 1px solid #a8a8a881;
 }
+.edp-status {
+  padding-left: 10px;
+  width: 320px;
+
+  border-left: 1px solid #a8a8a881;
+}
 .submit-create {
   background-color: #0095f6;
   padding: 9px 20px;
@@ -315,6 +321,12 @@ input {
   overflow-x: scroll;
   position: relative;
 }
+.edpWraper {
+  display: none;
+  overflow-x: scroll;
+  position: relative;
+}
+
 .edpWraper {
   height: 100%;
   width: 100%;

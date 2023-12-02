@@ -7,7 +7,7 @@ const expressApp = require("./express-app");
 const io_Client = require("socket.io-client");
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
-
+let userOnline;
 const corsOptions = {
   origin: ["http://127.0.0.1:8001", "http://127.0.0.1:8002"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -25,6 +25,9 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
+  socket.on("loadUserOnline", async (callback) => {
+    callback({ data: userOnline });
+  });
 });
 // connect to socket user
 
@@ -32,12 +35,12 @@ socketUser.on("connect", () => {
   console.log("ket noi thanh cong");
 });
 socketUser.on("adminConnect", async (data) => {
-  user = await data;
-  console.log(user);
+  userOnline = await data;
+
   io.emit("getUserOnline", { data: data });
 });
 
-expressApp(app, socketUser);
+expressApp(app, io);
 app.start = app.listen = function () {
   return httpServer.listen.apply(httpServer, arguments);
 };

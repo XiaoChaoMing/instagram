@@ -98,6 +98,7 @@ app.controller("MessageCtrl", function ($scope, $http) {
       toUserId: $scope.currentFriend,
       messageText: $scope.MessText,
     };
+    $(".messIn").val("");
     $http.post("/SendMessage", msg).then(
       function (response) {
         if (response.data.status === 200) {

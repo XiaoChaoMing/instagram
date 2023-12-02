@@ -62,6 +62,11 @@ class PostService {
   async Follower(UserId) {
     return await this.FollowRepo.getFollower(UserId);
   }
-  async showFullPost(id) {}
+  async postChartByYear() {
+    return await this.PostRepo.PostChartByYear();
+  }
+  async getWeeklyPost(userid) {
+    return await this.PostRepo.getWeeklyPost(userid);
+  }
 }
 module.exports = PostService;
