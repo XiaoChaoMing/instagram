@@ -27,7 +27,6 @@ class CustomerService {
   async SignIn(userInput) {
     const { userName, Password } = userInput;
     const existAccount = await this.AccountRepo.getAccountByUserName(userName);
-    console.log(existAccount[0]);
     if (existAccount.length > 0) {
       const validPassword = await ValidatePassword(
         Password,
